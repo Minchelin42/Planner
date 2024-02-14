@@ -17,6 +17,10 @@
 		390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23922B7D0CD800792385 /* PlanViewController.swift */; };
 		390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23942B7D0F5700792385 /* PlanCollectionViewCell.swift */; };
 		390C23982B7D10D500792385 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23972B7D10D500792385 /* SnapKit */; };
+		390C239B2B7D1FAA00792385 /* NewPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */; };
+		390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239C2B7D2A4300792385 /* TagViewController.swift */; };
+		390C239F2B7D334C00792385 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239E2B7D334C00792385 /* DateViewController.swift */; };
+		390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23A02B7D389200792385 /* PriorityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,10 @@
 		390C238F2B7D0B1000792385 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		390C23922B7D0CD800792385 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		390C23942B7D0F5700792385 /* PlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewCell.swift; sourceTree = "<group>"; };
+		390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlanViewController.swift; sourceTree = "<group>"; };
+		390C239C2B7D2A4300792385 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		390C239E2B7D334C00792385 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		390C23A02B7D389200792385 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,7 @@
 		390C23772B7D0A7700792385 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				390C23992B7D1E5700792385 /* NewPlan */,
 				390C23912B7D0C3200792385 /* Plan */,
 				390C238E2B7D0AEC00792385 /* Base */,
 				390C23782B7D0A7700792385 /* AppDelegate.swift */,
@@ -92,6 +101,17 @@
 				390C23942B7D0F5700792385 /* PlanCollectionViewCell.swift */,
 			);
 			path = Plan;
+			sourceTree = "<group>";
+		};
+		390C23992B7D1E5700792385 /* NewPlan */ = {
+			isa = PBXGroup;
+			children = (
+				390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */,
+				390C239C2B7D2A4300792385 /* TagViewController.swift */,
+				390C239E2B7D334C00792385 /* DateViewController.swift */,
+				390C23A02B7D389200792385 /* PriorityViewController.swift */,
+			);
+			path = NewPlan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,8 +194,12 @@
 				390C237D2B7D0A7700792385 /* ViewController.swift in Sources */,
 				390C23902B7D0B1000792385 /* BaseViewController.swift in Sources */,
 				390C23792B7D0A7700792385 /* AppDelegate.swift in Sources */,
+				390C239B2B7D1FAA00792385 /* NewPlanViewController.swift in Sources */,
+				390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */,
 				390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */,
+				390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
+				390C239F2B7D334C00792385 /* DateViewController.swift in Sources */,
 				390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
