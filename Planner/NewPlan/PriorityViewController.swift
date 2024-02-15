@@ -9,7 +9,7 @@ import UIKit
 
 class PriorityViewController: BaseViewController {
 
-    let segmentedControl = UISegmentedControl(items: ["짱중요", "왕중요", "대박중요", "완전중요한데 하기싫음", "완전하고싶은데 제일 쓸데 없음"])
+    let segmentedControl = UISegmentedControl(items: ["낮음", "중간","높음"])
     
     var priority: String = ""
     

@@ -78,7 +78,7 @@ class PlanViewController: BaseViewController {
     }
     
     @objc func newPlanButtonClicked() {
-        let vc = NewPlanViewController()
+        let vc = PlanNewViewController()
         
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
@@ -115,6 +115,13 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.count.text = planList[indexPath.row].count != -1 ? String(planList[indexPath.row].count) : ""
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if planList[indexPath.row].title == "전체" {
+            let vc = AllPlanViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     
