@@ -17,10 +17,18 @@
 		390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23922B7D0CD800792385 /* PlanViewController.swift */; };
 		390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23942B7D0F5700792385 /* PlanCollectionViewCell.swift */; };
 		390C23982B7D10D500792385 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23972B7D10D500792385 /* SnapKit */; };
-		390C239B2B7D1FAA00792385 /* NewPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */; };
 		390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239C2B7D2A4300792385 /* TagViewController.swift */; };
 		390C239F2B7D334C00792385 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C239E2B7D334C00792385 /* DateViewController.swift */; };
 		390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23A02B7D389200792385 /* PriorityViewController.swift */; };
+		390C23A32B7DA42600792385 /* NewPlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23A22B7DA42600792385 /* NewPlanCollectionViewCell.swift */; };
+		390C23AD2B7DC10B00792385 /* PlanNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23AC2B7DC10B00792385 /* PlanNewViewController.swift */; };
+		390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23AE2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift */; };
+		390C23B22B7E184600792385 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23B12B7E184600792385 /* Realm */; };
+		390C23B42B7E184600792385 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23B32B7E184600792385 /* RealmSwift */; };
+		390C23B72B7E188200792385 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23B62B7E188200792385 /* RealmModel.swift */; };
+		390C23BA2B7E1D7900792385 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23B92B7E1D7900792385 /* Toast */; };
+		390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */; };
+		390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,10 +43,15 @@
 		390C238F2B7D0B1000792385 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		390C23922B7D0CD800792385 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		390C23942B7D0F5700792385 /* PlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewCell.swift; sourceTree = "<group>"; };
-		390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlanViewController.swift; sourceTree = "<group>"; };
 		390C239C2B7D2A4300792385 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		390C239E2B7D334C00792385 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		390C23A02B7D389200792385 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
+		390C23A22B7DA42600792385 /* NewPlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlanCollectionViewCell.swift; sourceTree = "<group>"; };
+		390C23AC2B7DC10B00792385 /* PlanNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanNewViewController.swift; sourceTree = "<group>"; };
+		390C23AE2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlanMemoCollectionViewCell.swift; sourceTree = "<group>"; };
+		390C23B62B7E188200792385 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanViewController.swift; sourceTree = "<group>"; };
+		390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				390C23BA2B7E1D7900792385 /* Toast in Frameworks */,
+				390C23B42B7E184600792385 /* RealmSwift in Frameworks */,
+				390C23B22B7E184600792385 /* Realm in Frameworks */,
 				390C23982B7D10D500792385 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +88,8 @@
 		390C23772B7D0A7700792385 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				390C23BD2B7E1FA200792385 /* All */,
+				390C23B52B7E187500792385 /* RealmModel */,
 				390C23992B7D1E5700792385 /* NewPlan */,
 				390C23912B7D0C3200792385 /* Plan */,
 				390C238E2B7D0AEC00792385 /* Base */,
@@ -106,12 +124,31 @@
 		390C23992B7D1E5700792385 /* NewPlan */ = {
 			isa = PBXGroup;
 			children = (
-				390C239A2B7D1FAA00792385 /* NewPlanViewController.swift */,
 				390C239C2B7D2A4300792385 /* TagViewController.swift */,
 				390C239E2B7D334C00792385 /* DateViewController.swift */,
 				390C23A02B7D389200792385 /* PriorityViewController.swift */,
+				390C23A22B7DA42600792385 /* NewPlanCollectionViewCell.swift */,
+				390C23AC2B7DC10B00792385 /* PlanNewViewController.swift */,
+				390C23AE2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift */,
 			);
 			path = NewPlan;
+			sourceTree = "<group>";
+		};
+		390C23B52B7E187500792385 /* RealmModel */ = {
+			isa = PBXGroup;
+			children = (
+				390C23B62B7E188200792385 /* RealmModel.swift */,
+			);
+			path = RealmModel;
+			sourceTree = "<group>";
+		};
+		390C23BD2B7E1FA200792385 /* All */ = {
+			isa = PBXGroup;
+			children = (
+				390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */,
+				390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */,
+			);
+			path = All;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +169,9 @@
 			name = Planner;
 			packageProductDependencies = (
 				390C23972B7D10D500792385 /* SnapKit */,
+				390C23B12B7E184600792385 /* Realm */,
+				390C23B32B7E184600792385 /* RealmSwift */,
+				390C23B92B7E1D7900792385 /* Toast */,
 			);
 			productName = Planner;
 			productReference = 390C23752B7D0A7700792385 /* Planner.app */;
@@ -163,6 +203,8 @@
 			mainGroup = 390C236C2B7D0A7700792385;
 			packageReferences = (
 				390C23962B7D10D500792385 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				390C23B02B7E184600792385 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				390C23B82B7E1D7900792385 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 390C23762B7D0A7700792385 /* Products */;
 			projectDirPath = "";
@@ -192,15 +234,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				390C237D2B7D0A7700792385 /* ViewController.swift in Sources */,
+				390C23B72B7E188200792385 /* RealmModel.swift in Sources */,
 				390C23902B7D0B1000792385 /* BaseViewController.swift in Sources */,
+				390C23AD2B7DC10B00792385 /* PlanNewViewController.swift in Sources */,
 				390C23792B7D0A7700792385 /* AppDelegate.swift in Sources */,
-				390C239B2B7D1FAA00792385 /* NewPlanViewController.swift in Sources */,
 				390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */,
 				390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */,
+				390C23A32B7DA42600792385 /* NewPlanCollectionViewCell.swift in Sources */,
 				390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */,
+				390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
+				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
 				390C239F2B7D334C00792385 /* DateViewController.swift in Sources */,
 				390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */,
+				390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +486,22 @@
 				minimumVersion = 5.7.0;
 			};
 		};
+		390C23B02B7E184600792385 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.47.0;
+			};
+		};
+		390C23B82B7E1D7900792385 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -446,6 +509,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 390C23962B7D10D500792385 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		390C23B12B7E184600792385 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 390C23B02B7E184600792385 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		390C23B32B7E184600792385 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 390C23B02B7E184600792385 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		390C23B92B7E1D7900792385 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 390C23B82B7E1D7900792385 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
