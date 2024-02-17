@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 struct PlanOption {
     var image: String
@@ -22,19 +23,22 @@ class PlanViewController: BaseViewController {
     
     let newPlan = UIButton()
     
-    var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: 0, color: .systemBlue),
+    var list: Results<PlannerTable> = {
+        let realm = try! Realm()
+        return realm.objects(PlannerTable.self)
+    }()
+    
+    lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: 0, color: .systemBlue),
                                   PlanOption(image: "calendar.badge.clock", title: "예정", count: 0, color: .red),
-                                  PlanOption(image: "tray.fill", title: "전체", count: 0, color: .gray),
+                                  PlanOption(image: "tray.fill", title: "전체", count: self.list.count, color: .gray),
                                   PlanOption(image: "flag.fill", title: "깃발 표시", count: 0, color: .orange),
                                   PlanOption(image: "checkmark", title: "완료", count: -1, color: .gray)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .black
 
     }
-    
     override func configureHierarchy() {
         view.addSubview(collectionView)
         view.addSubview(bottomView)
@@ -79,6 +83,11 @@ class PlanViewController: BaseViewController {
     
     @objc func newPlanButtonClicked() {
         let vc = PlanNewViewController()
+        
+        vc.updateCount = {
+            self.planList[2].count = self.list.count
+            self.collectionView.reloadData()
+        }
         
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)

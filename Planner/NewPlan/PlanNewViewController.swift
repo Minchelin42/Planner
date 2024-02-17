@@ -32,6 +32,8 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
+    var updateCount: (() -> Void)?
+    
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
     var planList: [PlanList] = [PlanList(title: "마감일", subTitle: ""),
@@ -48,6 +50,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(deadLineReceivedNotification), name: NSNotification.Name("DeadLineReceived"), object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        updateCount?()
+    }
+
     @objc func deadLineReceivedNotification(notification: NSNotification) {
         if let value = notification.userInfo?["deadLine"] as? String {
             planList[0].subTitle = "\(value)"
@@ -126,7 +134,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
             var style = ToastStyle()
             style.messageColor = .white
             self.view.makeToast("입력하신 내용이 추가되었습니다", duration: 2.0, position: .bottom, style: style)
-            
+
             dismiss(animated: true)
         }
     }
