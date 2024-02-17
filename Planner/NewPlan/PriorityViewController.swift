@@ -13,6 +13,8 @@ class PriorityViewController: BaseViewController {
     
     var priority: String = ""
     
+    var delegate: PassDataDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +24,7 @@ class PriorityViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.post(name: NSNotification.Name("PriorityReceived"), object: nil, userInfo: ["priority" : priority])
+        delegate?.priorityReceived(priority: priority)
     }
     
     override func configureHierarchy() {

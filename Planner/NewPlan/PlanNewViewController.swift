@@ -21,7 +21,11 @@ struct PlanList {
     var subTitle: String
 }
 
-class PlanNewViewController: BaseViewController {
+protocol PassDataDelegate {
+    func priorityReceived(priority: String)
+}
+
+class PlanNewViewController: BaseViewController, PassDataDelegate {
     
     let textInputView = UIView()
     let grayLine = UIView()
@@ -42,9 +46,6 @@ class PlanNewViewController: BaseViewController {
         view.backgroundColor = .black
         
         NotificationCenter.default.addObserver(self, selector: #selector(deadLineReceivedNotification), name: NSNotification.Name("DeadLineReceived"), object: nil)
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(priorityReceivedNotification), name: NSNotification.Name("PriorityReceived"), object: nil)
     }
     
     @objc func deadLineReceivedNotification(notification: NSNotification) {
@@ -54,12 +55,9 @@ class PlanNewViewController: BaseViewController {
         }
     }
     
-    
-    @objc func priorityReceivedNotification(notification: NSNotification) {
-        if let value = notification.userInfo?["priority"] as? String {
-            planList[2].subTitle = "\(value)"
-            self.collectionView.reloadData()
-        }
+    func priorityReceived(priority: String) {
+        planList[2].subTitle = "\(priority)"
+        self.collectionView.reloadData()
     }
     
     override func configureHierarchy() {
@@ -169,23 +167,23 @@ class PlanNewViewController: BaseViewController {
         
     }
     
-    func deadLineClicked() {
+    func deadLineClicked() { //notiofication
         let vc = DateViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func tagClicked() {
+    func tagClicked() { //closure
         let vc = TagViewController()
         vc.setTag = { value in
-//            self.tag.setTitle("태그 \(value)", for: .normal)
             self.planList[1].subTitle = "\(value)"
             self.collectionView.reloadData()
         }
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func gradeClicked() {
+    func gradeClicked() { //delegate
         let vc = PriorityViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
