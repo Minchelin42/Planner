@@ -37,6 +37,8 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
+    let repository = PlannerTableRepository()
+    
     var updateCount: ((_ delete: Bool) -> Void)?
     var delete: Bool = false
     
@@ -127,26 +129,13 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
             
         } else {
             
-            let realm = try! Realm()
-            print(realm.configuration.fileURL)
-            
             if type == .new {
                 let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
-                try! realm.write {
-                    realm.add(data)
-                    print("Realm Create")
-                }
+                repository.createItem(data)
+
             } else { //edit
-                try! realm.write {
-                    realm.create(PlannerTable.self, value: [
-                        "id" : editingData.id, "title" : titleTextField.text!,
-                        "memo" : memoTextField.text!,
-                        "date" : planList[Plan.date.rawValue].subTitle,
-                        "tag" : planList[Plan.tag.rawValue].subTitle,
-                        "priority" : planList[Plan.priority.rawValue].subTitle],
-                        update: .modified)
-                }
+                repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
             }
             
             dismiss(animated: true)

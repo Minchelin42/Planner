@@ -24,12 +24,12 @@ class PlanViewController: BaseViewController {
     
     let newPlan = UIButton()
     
-    var list: Results<PlannerTable> = {
-        let realm = try! Realm()
-        return realm.objects(PlannerTable.self).where {
-            $0.clear == false
-        }
+    let repository = PlannerTableRepository()
+
+    lazy var list: Results<PlannerTable> = {
+        repository.fetchCompleteFilter(false)
     }()
+    
     
     lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: 0, color: .systemBlue),
                                   PlanOption(image: "calendar.badge.clock", title: "예정", count: 0, color: .red),

@@ -30,6 +30,7 @@
 		390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */; };
 		390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */; };
 		399432212B81CF6F004609DD /* CompletePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399432202B81CF6F004609DD /* CompletePlanViewController.swift */; };
+		399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399432222B823C07004609DD /* PlannerTableRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanViewController.swift; sourceTree = "<group>"; };
 		390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanTableViewCell.swift; sourceTree = "<group>"; };
 		399432202B81CF6F004609DD /* CompletePlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePlanViewController.swift; sourceTree = "<group>"; };
+		399432222B823C07004609DD /* PlannerTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				390C23B62B7E188200792385 /* RealmModel.swift */,
+				399432222B823C07004609DD /* PlannerTableRepository.swift */,
 			);
 			path = RealmModel;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
 				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
+				399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */,
 				399432212B81CF6F004609DD /* CompletePlanViewController.swift in Sources */,
 				390C239F2B7D334C00792385 /* DateViewController.swift in Sources */,
 				390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */,

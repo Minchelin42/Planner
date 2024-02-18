@@ -13,10 +13,10 @@ class PlannerTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
-    @Persisted var date: String
+    @Persisted(indexed: true) var date: String
     @Persisted var tag: String
     @Persisted var priority: String
-    @Persisted var clear: Bool
+    @Persisted(indexed: true) var complete: Bool
     
     convenience init(
         title: String,
@@ -30,6 +30,6 @@ class PlannerTable: Object {
         self.date = date
         self.tag = tag
         self.priority = priority
-        self.clear = false
+        self.complete = false
     }
 }

@@ -15,34 +15,24 @@ class CompletePlanViewController: BaseViewController {
     
     var updateCount: (() -> Void)?
     
-    var list: Results<PlannerTable>! = {
-        let realm = try! Realm()
-        return realm.objects(PlannerTable.self).where {
-            $0.clear == true
-        }
+    let repository = PlannerTableRepository()
+    
+    lazy var list: Results<PlannerTable>! = {
+        return repository.fetchCompleteFilter(true)
     }()
 
     lazy var sortDateLate = UIAction(title: "마감일 느린순") { action in
-        let realm = try! Realm()
-        
-        self.list = realm.objects(PlannerTable.self).sorted(byKeyPath: "date", ascending: false)
-        
+        self.list = self.repository.fetchSortedData("date", ascending: false, list: self.repository.fetchCompleteFilter(true))
         self.tableView.reloadData()
     }
     
     lazy var sortDateEarly = UIAction(title: "마감일 빠른순") { action in
-        let realm = try! Realm()
-        
-        self.list = realm.objects(PlannerTable.self).sorted(byKeyPath: "date", ascending: true)
-        
+        self.list = self.repository.fetchSortedData("date", ascending: true, list: self.repository.fetchCompleteFilter(true))
         self.tableView.reloadData()
     }
     
     lazy var sortTitle = UIAction(title: "제목순") { action in
-        let realm = try! Realm()
-        
-        self.list = realm.objects(PlannerTable.self).sorted(byKeyPath: "title", ascending: true)
-        
+        self.list = self.repository.fetchSortedData("title", ascending: true, list: self.repository.fetchCompleteFilter(true))
         self.tableView.reloadData()
     }
     
@@ -118,15 +108,8 @@ extension CompletePlanViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             print("delete 버튼 클릭")
-            let realm = try! Realm()
+            self.repository.deleteItem(self.list[indexPath.row])
             
-            realm.objects(PlannerTable.self).where {
-                $0.clear == true
-            }
-            
-            try! realm.write {
-                realm.delete(self.list[indexPath.row])
-            }
             tableView.deleteRows(at: [indexPath], with: .middle)
         }
         
@@ -148,12 +131,7 @@ extension CompletePlanViewController: UITableViewDelegate, UITableViewDataSource
                 self.view.makeToast(delete ? "삭제되었습니다" : "수정되었습니다", duration: 2.0, position: .bottom, style: style)
 
                 if delete {
-                    let realm = try! Realm()
-                    
-                    try! realm.write {
-                        realm.delete(self.list[indexPath.row])
-                    }
-                    
+                    self.repository.deleteItem(self.list[indexPath.row])
                     tableView.deleteRows(at: [indexPath], with: .middle)
                 }
                 
@@ -172,22 +150,15 @@ extension CompletePlanViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     @objc func checkButtonClicked(_ sender: UIButton) {
-        let realm = try! Realm()
-        
+
         if sender.currentImage == UIImage(systemName: "checkmark.circle.fill") {
             sender.setImage(nil, for: .normal)
-            try! realm.write {
-                list[sender.tag].clear.toggle()
-            }
-            
         } else {
             sender.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
             sender.tintColor = .gray
-            
-            try! realm.write {
-                list[sender.tag].clear.toggle()
-            }
         }
+        
+        repository.updatComplete(list[sender.tag])
     }
     
 }
