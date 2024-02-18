@@ -9,6 +9,7 @@ import UIKit
 
 class AllPlanTableViewCell: UITableViewCell {
 
+    let checkButton = UIButton()
     let titleLabel = UILabel()
     let memoLabel = UILabel()
     let dateLabel = UILabel()
@@ -26,6 +27,7 @@ class AllPlanTableViewCell: UITableViewCell {
     }
     
     func configureHierarchy() {
+        contentView.addSubview(checkButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(memoLabel)
         contentView.addSubview(dateLabel)
@@ -34,9 +36,16 @@ class AllPlanTableViewCell: UITableViewCell {
     }
     
     func configureLayout() {
-        titleLabel.snp.makeConstraints { make in
+        
+        checkButton.snp.makeConstraints { make in
             make.top.equalTo(8)
             make.leading.equalTo(contentView).inset(10)
+            make.size.equalTo(15)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(8)
+            make.leading.equalTo(checkButton.snp.trailing).offset(10)
             make.height.equalTo(15)
             make.width.equalTo(200)
         }
@@ -49,14 +58,15 @@ class AllPlanTableViewCell: UITableViewCell {
         }
         
         memoLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.horizontalEdges.equalTo(contentView).inset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.trailing.equalTo(contentView).inset(10)
             make.height.equalTo(13)
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoLabel.snp.bottom).offset(5)
-            make.leading.equalTo(contentView).inset(10)
+            make.top.equalTo(memoLabel.snp.bottom).offset(8)
+            make.leading.equalTo(titleLabel.snp.leading)
             make.width.equalTo(150)
             make.height.equalTo(13)
         }
@@ -68,8 +78,13 @@ class AllPlanTableViewCell: UITableViewCell {
             make.height.equalTo(13)
         }
     }
-    
+
     func configureView() {
+        checkButton.clipsToBounds = true
+        checkButton.layer.cornerRadius = 7.5
+        checkButton.layer.borderColor = UIColor.gray.cgColor
+        checkButton.layer.borderWidth = 1
+        
         titleLabel.text = "제목"
         titleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
         titleLabel.textColor = .white
