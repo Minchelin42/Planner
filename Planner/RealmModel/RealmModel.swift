@@ -16,6 +16,7 @@ class PlannerTable: Object {
     @Persisted var date: String
     @Persisted var tag: String
     @Persisted var priority: String
+    @Persisted var clear: Bool
     
     convenience init(
         title: String,
@@ -29,5 +30,6 @@ class PlannerTable: Object {
         self.date = date
         self.tag = tag
         self.priority = priority
+        self.clear = false
     }
 }

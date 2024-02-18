@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 struct PlanOption {
     var image: String
@@ -25,7 +26,9 @@ class PlanViewController: BaseViewController {
     
     var list: Results<PlannerTable> = {
         let realm = try! Realm()
-        return realm.objects(PlannerTable.self)
+        return realm.objects(PlannerTable.self).where {
+            $0.clear == false
+        }
     }()
     
     lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: 0, color: .systemBlue),
@@ -85,6 +88,11 @@ class PlanViewController: BaseViewController {
         let vc = PlanNewViewController()
         
         vc.updateCount = {
+            var style = ToastStyle()
+            style.messageColor = .white
+            style.backgroundColor = .gray
+            self.view.makeToast("할 일이 추가되었습니다", duration: 2.0, position: .bottom, style: style)
+            
             self.planList[2].count = self.list.count
             self.collectionView.reloadData()
         }
@@ -129,6 +137,23 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if planList[indexPath.row].title == "전체" {
             let vc = AllPlanViewController()
+            
+            vc.updateCount = {
+                self.planList[2].count = self.list.count
+                self.collectionView.reloadData()
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        if planList[indexPath.row].title == "완료" {
+            let vc = CompletePlanViewController()
+            
+            vc.updateCount = {
+                self.planList[2].count = self.list.count
+                self.collectionView.reloadData()
+            }
+            
             navigationController?.pushViewController(vc, animated: true)
         }
     }

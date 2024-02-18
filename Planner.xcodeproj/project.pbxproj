@@ -29,6 +29,7 @@
 		390C23BA2B7E1D7900792385 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 390C23B92B7E1D7900792385 /* Toast */; };
 		390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */; };
 		390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */; };
+		399432212B81CF6F004609DD /* CompletePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399432202B81CF6F004609DD /* CompletePlanViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		390C23B62B7E188200792385 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanViewController.swift; sourceTree = "<group>"; };
 		390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanTableViewCell.swift; sourceTree = "<group>"; };
+		399432202B81CF6F004609DD /* CompletePlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePlanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 		390C23772B7D0A7700792385 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				3994321F2B81CF1D004609DD /* Complete */,
 				390C23BD2B7E1FA200792385 /* All */,
 				390C23B52B7E187500792385 /* RealmModel */,
 				390C23992B7D1E5700792385 /* NewPlan */,
@@ -149,6 +152,14 @@
 				390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */,
 			);
 			path = All;
+			sourceTree = "<group>";
+		};
+		3994321F2B81CF1D004609DD /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+				399432202B81CF6F004609DD /* CompletePlanViewController.swift */,
+			);
+			path = Complete;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +256,7 @@
 				390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
 				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
+				399432212B81CF6F004609DD /* CompletePlanViewController.swift in Sources */,
 				390C239F2B7D334C00792385 /* DateViewController.swift in Sources */,
 				390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */,
 				390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */,
