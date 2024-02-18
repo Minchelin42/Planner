@@ -13,7 +13,7 @@ class PlannerTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
-    @Persisted(indexed: true) var date: String
+    @Persisted(indexed: true) var date: Date?
     @Persisted var tag: String
     @Persisted var priority: String
     @Persisted(indexed: true) var complete: Bool
@@ -21,7 +21,7 @@ class PlannerTable: Object {
     convenience init(
         title: String,
         memo: String? = nil,
-        date: String,
+        date: Date? = nil,
         tag: String,
         priority: String) {
         self.init()

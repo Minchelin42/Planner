@@ -26,22 +26,28 @@ class PlanViewController: BaseViewController {
     
     let repository = PlannerTableRepository()
 
-    lazy var list: Results<PlannerTable> = {
-        repository.fetchCompleteFilter(false)
-    }()
+    var list: Results<PlannerTable>!
     
     
-    lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: 0, color: .systemBlue),
-                                  PlanOption(image: "calendar.badge.clock", title: "예정", count: 0, color: .red),
-                                  PlanOption(image: "tray.fill", title: "전체", count: self.list.count, color: .gray),
+    lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: self.repository.fetchTodayFilter().count, color: .systemBlue),
+                                  PlanOption(image: "calendar.badge.clock", title: "예정", count: self.repository.fetchLaterFilter().count, color: .red),
+                                  PlanOption(image: "tray.fill", title: "전체", count: self.repository.fetchCompleteFilter(false).count, color: .gray),
                                   PlanOption(image: "flag.fill", title: "깃발 표시", count: 0, color: .orange),
                                   PlanOption(image: "checkmark", title: "완료", count: -1, color: .gray)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-
+        
+        list = repository.fetchCompleteFilter(false)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        planList[0].count = self.repository.fetchTodayFilter().count
+        planList[1].count = self.repository.fetchLaterFilter().count
+    }
+    
     override func configureHierarchy() {
         view.addSubview(collectionView)
         view.addSubview(bottomView)
@@ -91,9 +97,11 @@ class PlanViewController: BaseViewController {
             var style = ToastStyle()
             style.messageColor = .white
             style.backgroundColor = .gray
-            self.view.makeToast("할 일이 추가되었습니다", duration: 2.0, position: .bottom, style: style)
             
+            self.planList[0].count = self.repository.fetchTodayFilter().count
+            self.planList[1].count = self.repository.fetchLaterFilter().count
             self.planList[2].count = self.list.count
+            
             self.collectionView.reloadData()
         }
         
@@ -139,7 +147,7 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let vc = AllPlanViewController()
             
             vc.updateCount = {
-                self.planList[2].count = self.list.count
+                self.planList[2].count = self.repository.fetchCompleteFilter(false).count
                 self.collectionView.reloadData()
             }
             
@@ -150,11 +158,19 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let vc = CompletePlanViewController()
             
             vc.updateCount = {
-                self.planList[2].count = self.list.count
+                self.planList[2].count = self.repository.fetchCompleteFilter(false).count
                 self.collectionView.reloadData()
             }
             
             navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        if planList[indexPath.row].title == "오늘" {
+            self.planList[0].count = self.repository.fetchTodayFilter().count
+        }
+        
+        if planList[indexPath.row].title == "예정" {
+            self.planList[1].count = self.repository.fetchLaterFilter().count
         }
     }
     

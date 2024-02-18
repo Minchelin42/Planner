@@ -44,11 +44,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     
     var type: PlanWriteType = .new
     
-    var editingData: PlannerTable = PlannerTable(title: "", date: "", tag: "", priority: "")
+    var editingData: PlannerTable = PlannerTable(title: "", date: nil, tag: "", priority: "")
+    var changeDate: Date = Date()
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
-    lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.date)"),
+    lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.date != nil ? changeDateFormat(editingData.date!) : "")"),
                                 PlanList(title: "태그", subTitle: "\(editingData.tag)"),
                                 PlanList(title: "우선순위", subTitle: "\(editingData.priority)"),
                                 PlanList(title: "이미지 추가", subTitle: "")]
@@ -69,8 +70,9 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     }
 
     @objc func deadLineReceivedNotification(notification: NSNotification) {
-        if let value = notification.userInfo?["deadLine"] as? String {
-            planList[0].subTitle = "\(value)"
+        if let value = notification.userInfo?["deadLine"] as? Date {
+            changeDate = value
+            planList[0].subTitle = "\(changeDateFormat(value))"
             self.collectionView.reloadData()
         }
     }
@@ -78,6 +80,13 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     func priorityReceived(priority: String) {
         planList[2].subTitle = "\(priority)"
         self.collectionView.reloadData()
+    }
+    
+    func changeDateFormat(_ date: Date) -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy년 MM월 dd일"
+        let result = format.string(from: date)
+        return result
     }
     
     override func configureHierarchy() {
@@ -130,12 +139,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         } else {
             
             if type == .new {
-                let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
                 repository.createItem(data)
 
             } else { //edit
-                repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
             }
             
             dismiss(animated: true)

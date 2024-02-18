@@ -75,6 +75,14 @@ class CompletePlanViewController: BaseViewController {
         tableView.register(AllPlanTableViewCell.self, forCellReuseIdentifier: "AllPlanTableViewCell")
         tableView.allowsSelection = false
     }
+    
+    func changeDateFormat(_ date: Date) -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy년 MM월 dd일"
+        let result = format.string(from: date)
+        return result
+    }
+    
 }
 
 extension CompletePlanViewController: UITableViewDelegate, UITableViewDataSource {
@@ -89,7 +97,7 @@ extension CompletePlanViewController: UITableViewDelegate, UITableViewDataSource
         
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
-        cell.dateLabel.text = row.date
+        cell.dateLabel.text = row.date != nil ? changeDateFormat(row.date!) : ""
         switch row.priority {
         case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
         case "중간": cell.priorityLabel.text = "⭐️⭐️"

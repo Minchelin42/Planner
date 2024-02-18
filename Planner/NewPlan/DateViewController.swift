@@ -11,7 +11,7 @@ class DateViewController: BaseViewController {
 
     let datePicker = UIDatePicker()
     
-    var deadLine: String = ""
+    var deadLine: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,16 +44,17 @@ class DateViewController: BaseViewController {
     }
     
     @objc func dateChanged() {
-        print(changeDateFormat())
-        deadLine = changeDateFormat()
+
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = "yyyy-MM-dd"
+
+        let date = dateformat.string(from: datePicker.date)
+        deadLine = dateformat.date(from: date)!
+        print("저장: \(deadLine)")
+        
     }
     
-    func changeDateFormat() -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy년 MM월 dd일"
-        let result = format.string(from: datePicker.date)
-        return result
-    }
+
     
     
 }
