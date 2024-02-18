@@ -9,6 +9,11 @@ import UIKit
 import RealmSwift
 import Toast
 
+enum PlanWriteType {
+    case new
+    case edit
+}
+
 enum Plan: Int {
     case date
     case tag
@@ -32,13 +37,18 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
-    var updateCount: (() -> Void)?
+    var updateCount: ((_ delete: Bool) -> Void)?
+    var delete: Bool = false
+    
+    var type: PlanWriteType = .new
+    
+    var editingData: PlannerTable = PlannerTable(title: "", date: "", tag: "", priority: "")
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
-    var planList: [PlanList] = [PlanList(title: "마감일", subTitle: ""),
-                                PlanList(title: "태그", subTitle: ""),
-                                PlanList(title: "우선순위", subTitle: ""),
+    lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.date)"),
+                                PlanList(title: "태그", subTitle: "\(editingData.tag)"),
+                                PlanList(title: "우선순위", subTitle: "\(editingData.priority)"),
                                 PlanList(title: "이미지 추가", subTitle: "")]
     
     
@@ -53,7 +63,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        updateCount?()
+        updateCount?(delete)
     }
 
     @objc func deadLineReceivedNotification(notification: NSNotification) {
@@ -108,42 +118,58 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     @objc func saveButtonClicked() {
         print(#function)
         
-        if titleTextField.text!.isEmpty || planList[Plan.date.rawValue].subTitle.isEmpty ||
-        planList[Plan.tag.rawValue].subTitle.isEmpty || planList[Plan.priority.rawValue].subTitle.isEmpty {
+        if titleTextField.text!.isEmpty {
             
-            let alert = UIAlertController(title: "저장 실패", message: "필수 내용을 입력해주세요!", preferredStyle: .alert)
-
-            let oneButton = UIAlertAction(title: "확인", style: .cancel)
-            
-            alert.addAction(oneButton)
-
-            present(alert, animated: true)
+            var style = ToastStyle()
+            style.messageColor = .white
+            style.backgroundColor = .gray
+            self.view.makeToast("제목을 입력해주세요", duration: 2.0, position: .bottom, style: style)
             
         } else {
             
             let realm = try! Realm()
             print(realm.configuration.fileURL)
             
-            let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
-            
-            try! realm.write {
-                realm.add(data)
-                print("Realm Create")
+            if type == .new {
+                let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: planList[Plan.date.rawValue].subTitle, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                
+                try! realm.write {
+                    realm.add(data)
+                    print("Realm Create")
+                }
+            } else { //edit
+                try! realm.write {
+                    realm.create(PlannerTable.self, value: [
+                        "id" : editingData.id, "title" : titleTextField.text!,
+                        "memo" : memoTextField.text!,
+                        "date" : planList[Plan.date.rawValue].subTitle,
+                        "tag" : planList[Plan.tag.rawValue].subTitle,
+                        "priority" : planList[Plan.priority.rawValue].subTitle],
+                        update: .modified)
+                }
             }
             
-            var style = ToastStyle()
-            style.messageColor = .white
-            self.view.makeToast("입력하신 내용이 추가되었습니다", duration: 2.0, position: .bottom, style: style)
-
             dismiss(animated: true)
         }
     }
     
+    @objc func deleteButtonClicked() {
+        print(#function)
+        
+        delete = true
+        
+        dismiss(animated: true)
+    }
+    
     override func configureView() {
         
-        navigationItem.title = "새로운 할 일"
+        navigationItem.title = type == .new ? "새로운 할 일" : "세부사항"
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+        
+        if type == .edit {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "삭제", style: .plain, target: self, action: #selector(deleteButtonClicked))
+        }
         
         textInputView.backgroundColor = .darkGray
         textInputView.clipsToBounds = true
@@ -153,8 +179,11 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         
         titleTextField.placeholder = "제목"
         titleTextField.textColor = .white
+        titleTextField.text = type == .new ? "" : editingData.title
+        
         memoTextField.placeholder = "메모"
         memoTextField.textColor = .white
+        memoTextField.text = type == .new ? "" : editingData.memo
         
         collectionView.delegate = self
         collectionView.dataSource = self

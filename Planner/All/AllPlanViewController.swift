@@ -7,12 +7,20 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 class AllPlanViewController: BaseViewController {
     
     let tableView = UITableView()
     
-    var list: Results<PlannerTable>!
+    var updateCount: (() -> Void)?
+    
+    var list: Results<PlannerTable>! = {
+        let realm = try! Realm()
+        return realm.objects(PlannerTable.self).where {
+            $0.clear == false
+        }
+    }()
 
     //마감일, 제목, 우선순위 낮음
     
@@ -51,12 +59,10 @@ class AllPlanViewController: BaseViewController {
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        let realm = try! Realm()
-        
-        list = realm.objects(PlannerTable.self)
+        updateCount?()
     }
     
     override func configureHierarchy() {
@@ -79,6 +85,7 @@ class AllPlanViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AllPlanTableViewCell.self, forCellReuseIdentifier: "AllPlanTableViewCell")
+        tableView.allowsSelection = false
     }
 }
 
@@ -95,13 +102,94 @@ extension AllPlanViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
         cell.dateLabel.text = row.date
-        cell.priorityLabel.text = row.priority
-        cell.tagLabel.text = row.tag
-        
+        switch row.priority {
+        case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
+        case "중간": cell.priorityLabel.text = "⭐️⭐️"
+        case "낮음": cell.priorityLabel.text = "⭐️"
+        default :  cell.priorityLabel.text = ""
+        }
+        cell.tagLabel.text = row.tag.isEmpty ? "" : "#\(row.tag)"
+        cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(_:)), for: .touchUpInside)
+        cell.checkButton.tag = indexPath.row
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
+            print("delete 버튼 클릭")
+            let realm = try! Realm()
+            
+            realm.objects(PlannerTable.self).where {
+                $0.clear == false
+            }
+            
+            try! realm.write {
+                realm.delete(self.list[indexPath.row])
+            }
+            
+            tableView.deleteRows(at: [indexPath], with: .middle)
+        }
+        
+        delete.image = UIImage(systemName: "trash")
+        delete.backgroundColor = .systemRed
+        
+        let edit = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
+            print("pencil 버튼 클릭")
+            let vc = PlanNewViewController()
+            
+            vc.updateCount = { delete in
+                var style = ToastStyle()
+                style.messageColor = .white
+                style.backgroundColor = .gray
+                self.view.makeToast(delete ? "삭제되었습니다" : "수정되었습니다", duration: 2.0, position: .bottom, style: style)
+                
+                if delete {
+                    let realm = try! Realm()
+                    
+                    try! realm.write {
+                        realm.delete(self.list[indexPath.row])
+                    }
+                    
+                    tableView.deleteRows(at: [indexPath], with: .middle)
+                }
+                
+                tableView.reloadData()
+            }
+            
+            vc.type = .edit
+            
+            vc.editingData = self.list[indexPath.row]
+            
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true)
+
+        }
+        
+        edit.image = UIImage(systemName: "pencil")
+        edit.backgroundColor = .orange
+        
+        return UISwipeActionsConfiguration(actions: [delete, edit])
+    }
+
+    @objc func checkButtonClicked(_ sender: UIButton) {
+        let realm = try! Realm()
+        
+        if sender.currentImage == UIImage(systemName: "checkmark.circle.fill") {
+            sender.setImage(nil, for: .normal)
+            try! realm.write {
+                list[sender.tag].clear.toggle()
+            }
+            
+        } else {
+            sender.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+            sender.tintColor = .gray
+            
+            try! realm.write {
+                list[sender.tag].clear.toggle()
+            }
+        }
+    }
+
 }
 
 

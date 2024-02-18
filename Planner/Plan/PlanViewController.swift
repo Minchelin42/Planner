@@ -87,7 +87,7 @@ class PlanViewController: BaseViewController {
     @objc func newPlanButtonClicked() {
         let vc = PlanNewViewController()
         
-        vc.updateCount = {
+        vc.updateCount = { delete in
             var style = ToastStyle()
             style.messageColor = .white
             style.backgroundColor = .gray
