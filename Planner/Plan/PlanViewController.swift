@@ -146,7 +146,12 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if planList[indexPath.row].title == "전체" {
             let vc = AllPlanViewController()
             
+            vc.type = .all
+            
             vc.updateCount = {
+                
+                self.planList[0].count = self.repository.fetchTodayFilter().count
+                self.planList[1].count = self.repository.fetchLaterFilter().count
                 self.planList[2].count = self.repository.fetchCompleteFilter(false).count
                 self.collectionView.reloadData()
             }
@@ -155,9 +160,13 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         if planList[indexPath.row].title == "완료" {
-            let vc = CompletePlanViewController()
+            let vc = AllPlanViewController()
+            
+            vc.type = .complete
             
             vc.updateCount = {
+                self.planList[0].count = self.repository.fetchTodayFilter().count
+                self.planList[1].count = self.repository.fetchLaterFilter().count
                 self.planList[2].count = self.repository.fetchCompleteFilter(false).count
                 self.collectionView.reloadData()
             }
@@ -166,11 +175,33 @@ extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         if planList[indexPath.row].title == "오늘" {
-            self.planList[0].count = self.repository.fetchTodayFilter().count
+            let vc = AllPlanViewController()
+            
+            vc.type = .today
+            
+            vc.updateCount = {
+                self.planList[0].count = self.repository.fetchTodayFilter().count
+                self.planList[1].count = self.repository.fetchLaterFilter().count
+                self.planList[2].count = self.repository.fetchCompleteFilter(false).count
+                self.collectionView.reloadData()
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
         
         if planList[indexPath.row].title == "예정" {
-            self.planList[1].count = self.repository.fetchLaterFilter().count
+            let vc = AllPlanViewController()
+            
+            vc.type = .later
+            
+            vc.updateCount = {
+                self.planList[0].count = self.repository.fetchTodayFilter().count
+                self.planList[1].count = self.repository.fetchLaterFilter().count
+                self.planList[2].count = self.repository.fetchCompleteFilter(false).count
+                self.collectionView.reloadData()
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

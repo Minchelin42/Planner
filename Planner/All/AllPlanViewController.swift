@@ -9,6 +9,13 @@ import UIKit
 import RealmSwift
 import Toast
 
+enum PlanListFilter {
+    case all
+    case complete
+    case today
+    case later
+}
+
 class AllPlanViewController: BaseViewController {
     
     let tableView = UITableView()
@@ -17,22 +24,30 @@ class AllPlanViewController: BaseViewController {
     
     let repository = PlannerTableRepository()
     
+    var type: PlanListFilter = .all
+    
     lazy var list: Results<PlannerTable>! = {
-        return repository.fetchCompleteFilter(false)
+        switch type {
+        case .all: return repository.fetchCompleteFilter(false)
+        case .complete: return repository.fetchCompleteFilter(true)
+        case .today: return repository.fetchTodayFilter()
+        case .later: return repository.fetchLaterFilter()
+        }
     }()
 
     lazy var sortDateLate = UIAction(title: "마감일 느린순") { action in
-        self.list = self.repository.fetchSortedData("date", ascending: false, list: self.repository.fetchCompleteFilter(false))
+        self.list = self.repository.fetchSortedData("date", ascending: false, list: self.list)
         self.tableView.reloadData()
     }
     
     lazy var sortDateEarly = UIAction(title: "마감일 빠른순") { action in
-        self.list = self.repository.fetchSortedData("date", ascending: true, list: self.repository.fetchCompleteFilter(false))
+        self.list = self.repository.fetchSortedData("date", ascending: true, list: self.list)
         self.tableView.reloadData()
     }
     
     lazy var sortTitle = UIAction(title: "제목순") { action in
-        self.list = self.repository.fetchSortedData("title", ascending: true, list: self.repository.fetchCompleteFilter(false))
+        self.list = self.repository.fetchSortedData("title", ascending: true, list: self.list
+        )
         self.tableView.reloadData()
     }
     
