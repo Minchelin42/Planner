@@ -42,10 +42,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     var updateCount: ((_ delete: Bool) -> Void)?
     var delete: Bool = false
     
+    lazy var selectImage: UIImage? = loadImageToDocument(filename: "\(editingData.id)")
+    
     var type: PlanWriteType = .new
     
     var editingData: PlannerTable = PlannerTable(title: "", date: nil, tag: "", priority: "")
-    var changeDate: Date = Date()
+    var changeDate: Date? = nil
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
@@ -142,9 +144,17 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
                 let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
                 repository.createItem(data)
+                
+                if let image = self.selectImage {
+                    saveImageToDocument(image: image, filename: "\(data.id)")
+                }
 
             } else { //edit
                 repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                
+                if let image = self.selectImage {
+                    saveImageToDocument(image: image, filename: "\(editingData.id)")
+                }
             }
             
             dismiss(animated: true)
@@ -188,6 +198,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         collectionView.backgroundColor = .clear
         collectionView.register(NewPlanCollectionViewCell.self, forCellWithReuseIdentifier: "Plan")
         collectionView.register(NewPlanMemoCollectionViewCell.self, forCellWithReuseIdentifier: "Memo")
+        collectionView.register(NewImageCollectionViewCell.self, forCellWithReuseIdentifier: "PlanImage")
     }
 
     func configureCollectionViewLayout() -> UICollectionViewLayout {
@@ -223,9 +234,30 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     }
     
     func plusImageClicked() {
-
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
     }
     
+}
+
+extension PlanNewViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(#function)
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(#function)
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            print("이미지 추가됨")
+            self.selectImage = pickedImage
+            collectionView.reloadData()
+        }
+        
+        dismiss(animated: true)
+    }
 }
 
 extension PlanNewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -234,13 +266,26 @@ extension PlanNewViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Plan", for: indexPath) as! NewPlanCollectionViewCell
-        
-        cell.title.text = planList[indexPath.row].title
-        cell.subTitle.text = planList[indexPath.row].subTitle
-        
-        return cell
+        if planList[indexPath.row].title != "이미지 추가" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Plan", for: indexPath) as! NewPlanCollectionViewCell
+            
+            cell.title.text = planList[indexPath.row].title
+            cell.subTitle.text = planList[indexPath.row].subTitle
+            
+            return cell
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlanImage", for: indexPath) as! NewImageCollectionViewCell
+            
+            cell.title.text = planList[indexPath.row].title
+            cell.subTitle.text = planList[indexPath.row].subTitle
+            
+            if let image = self.selectImage {
+                cell.selectImage.image = image
+            }
+            
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

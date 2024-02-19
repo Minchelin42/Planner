@@ -110,8 +110,6 @@ class AllPlanTableViewCell: UITableViewCell {
         tagLabel.text = "쇼핑"
         tagLabel.font = .systemFont(ofSize: 13, weight: .medium)
         tagLabel.textColor = .darkGray
-        
-        image.backgroundColor = .green
       
     }
     

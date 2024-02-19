@@ -64,7 +64,7 @@ final class PlannerTableRepository {
         }
     }
     
-    func updateItem(id: ObjectId, title: String, memo: String, date: Date, tag: String, priority: String) {
+    func updateItem(id: ObjectId, title: String, memo: String, date: Date?, tag: String, priority: String) {
         do {
             try realm.write {
                 realm.create(PlannerTable.self, value: [

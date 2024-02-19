@@ -1,19 +1,21 @@
 //
-//  NewPlanTableViewCell.swift
+//  NewImageCollectionViewCell.swift
 //  Planner
 //
-//  Created by 민지은 on 2024/02/15.
+//  Created by 민지은 on 2024/02/20.
 //
 
 import UIKit
 
-class NewPlanCollectionViewCell: UICollectionViewCell {
-    
+class NewImageCollectionViewCell: UICollectionViewCell {
+
     let backView = UIView()
     let title = UILabel()
+    var selectImage = UIImageView()
     let image = UIImageView()
+    
     let subTitle = UILabel()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,6 +28,7 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(backView)
         contentView.addSubview(title)
         contentView.addSubview(subTitle)
+        contentView.addSubview(selectImage)
         contentView.addSubview(image)
     }
     
@@ -47,7 +50,18 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(150)
             make.top.bottom.equalTo(backView).inset(10)
         }
-
+        
+        selectImage.snp.makeConstraints { make in
+            make.centerY.equalTo(backView)
+            make.trailing.equalTo(backView).inset(40)
+            make.size.equalTo(30)
+        }
+        
+        image.snp.makeConstraints { make in
+            make.centerY.equalTo(backView)
+            make.trailing.equalTo(backView).inset(15)
+            make.size.equalTo(15)
+        }
     }
     
     func configureView() {
@@ -65,6 +79,8 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
         subTitle.font = .systemFont(ofSize: 12, weight: .semibold)
         subTitle.textAlignment = .right
         subTitle.numberOfLines = 0
+        
+        selectImage.backgroundColor = .clear
         
         image.image = UIImage(systemName: "chevron.compact.right")
         image.tintColor = .gray

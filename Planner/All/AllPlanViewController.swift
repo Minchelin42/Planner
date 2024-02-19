@@ -122,13 +122,20 @@ extension AllPlanViewController: UITableViewDelegate, UITableViewDataSource {
         cell.tagLabel.text = row.tag.isEmpty ? "" : "#\(row.tag)"
         cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(_:)), for: .touchUpInside)
         cell.checkButton.tag = indexPath.row
+        cell.image.image = loadImageToDocument(filename: "\(row.id)")
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             print("delete 버튼 클릭")
+            var style = ToastStyle()
+            style.messageColor = .white
+            style.backgroundColor = .gray
+            
             self.repository.deleteItem(self.list[indexPath.row])
+            self.view.makeToast("삭제되었습니다", duration: 2.0, position: .bottom, style: style)
             tableView.deleteRows(at: [indexPath], with: .middle)
         }
         
@@ -143,9 +150,9 @@ extension AllPlanViewController: UITableViewDelegate, UITableViewDataSource {
                 var style = ToastStyle()
                 style.messageColor = .white
                 style.backgroundColor = .gray
-                self.view.makeToast(delete ? "삭제되었습니다" : "수정되었습니다", duration: 2.0, position: .bottom, style: style)
-                
+
                 if delete {
+                    self.view.makeToast("삭제되었습니다", duration: 2.0, position: .bottom, style: style)
                     self.repository.deleteItem(self.list[indexPath.row])
                     tableView.deleteRows(at: [indexPath], with: .middle)
                 }

@@ -28,6 +28,7 @@ class PlanViewController: BaseViewController {
 
     var list: Results<PlannerTable>!
     
+    let realm = try! Realm()
     
     lazy var planList: [PlanOption] = [PlanOption(image: "calendar", title: "오늘", count: self.repository.fetchTodayFilter().count, color: .systemBlue),
                                   PlanOption(image: "calendar.badge.clock", title: "예정", count: self.repository.fetchLaterFilter().count, color: .red),
@@ -38,6 +39,8 @@ class PlanViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        
+        print(realm.configuration.fileURL)
         
         list = repository.fetchCompleteFilter(false)
     }

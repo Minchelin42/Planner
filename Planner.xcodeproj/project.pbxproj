@@ -30,6 +30,8 @@
 		390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */; };
 		390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */; };
 		399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399432222B823C07004609DD /* PlannerTableRepository.swift */; };
+		39BCE3952B83A1B40037D809 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BCE3942B83A1B40037D809 /* FileManager+Extension.swift */; };
+		39BCE3982B83AA5A0037D809 /* NewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BCE3972B83AA5A0037D809 /* NewImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanViewController.swift; sourceTree = "<group>"; };
 		390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanTableViewCell.swift; sourceTree = "<group>"; };
 		399432222B823C07004609DD /* PlannerTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableRepository.swift; sourceTree = "<group>"; };
+		39BCE3942B83A1B40037D809 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		39BCE3972B83AA5A0037D809 /* NewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		390C23772B7D0A7700792385 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				39BCE3962B83A1C90037D809 /* Extension */,
 				390C23BD2B7E1FA200792385 /* All */,
 				390C23B52B7E187500792385 /* RealmModel */,
 				390C23992B7D1E5700792385 /* NewPlan */,
@@ -129,6 +134,7 @@
 				390C239C2B7D2A4300792385 /* TagViewController.swift */,
 				390C239E2B7D334C00792385 /* DateViewController.swift */,
 				390C23A02B7D389200792385 /* PriorityViewController.swift */,
+				39BCE3972B83AA5A0037D809 /* NewImageCollectionViewCell.swift */,
 				390C23A22B7DA42600792385 /* NewPlanCollectionViewCell.swift */,
 				390C23AC2B7DC10B00792385 /* PlanNewViewController.swift */,
 				390C23AE2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift */,
@@ -152,6 +158,14 @@
 				390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */,
 			);
 			path = All;
+			sourceTree = "<group>";
+		};
+		39BCE3962B83A1C90037D809 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				39BCE3942B83A1B40037D809 /* FileManager+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +254,7 @@
 				390C23B72B7E188200792385 /* RealmModel.swift in Sources */,
 				390C23902B7D0B1000792385 /* BaseViewController.swift in Sources */,
 				390C23AD2B7DC10B00792385 /* PlanNewViewController.swift in Sources */,
+				39BCE3982B83AA5A0037D809 /* NewImageCollectionViewCell.swift in Sources */,
 				390C23792B7D0A7700792385 /* AppDelegate.swift in Sources */,
 				390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */,
 				390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */,
@@ -247,6 +262,7 @@
 				390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */,
 				390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
+				39BCE3952B83A1B40037D809 /* FileManager+Extension.swift in Sources */,
 				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
 				399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */,
 				390C239F2B7D334C00792385 /* DateViewController.swift in Sources */,
