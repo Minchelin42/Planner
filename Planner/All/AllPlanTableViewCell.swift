@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class AllPlanTableViewCell: UITableViewCell {
 
@@ -15,6 +16,7 @@ class AllPlanTableViewCell: UITableViewCell {
     let dateLabel = UILabel()
     let tagLabel = UILabel()
     let priorityLabel = UILabel()
+    let image = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +35,7 @@ class AllPlanTableViewCell: UITableViewCell {
         contentView.addSubview(dateLabel)
         contentView.addSubview(tagLabel)
         contentView.addSubview(priorityLabel)
+        contentView.addSubview(image)
     }
     
     func configureLayout() {
@@ -43,39 +46,42 @@ class AllPlanTableViewCell: UITableViewCell {
             make.size.equalTo(15)
         }
         
-        titleLabel.snp.makeConstraints { make in
+        priorityLabel.snp.makeConstraints { make in
             make.top.equalTo(8)
             make.leading.equalTo(checkButton.snp.trailing).offset(10)
             make.height.equalTo(15)
-            make.width.equalTo(200)
         }
         
-        priorityLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(8)
-            make.leading.equalTo(titleLabel.snp.trailing).offset(10)
-            make.trailing.equalTo(contentView).inset(10)
+            make.leading.equalTo(priorityLabel.snp.trailing).offset(4)
             make.height.equalTo(15)
         }
         
         memoLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.leading.equalTo(titleLabel.snp.leading)
+            make.top.equalTo(priorityLabel.snp.bottom).offset(8)
+            make.leading.equalTo(priorityLabel.snp.leading)
             make.trailing.equalTo(contentView).inset(10)
             make.height.equalTo(13)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(memoLabel.snp.bottom).offset(8)
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.width.equalTo(150)
+            make.leading.equalTo(priorityLabel.snp.leading)
+            make.width.equalTo(110)
             make.height.equalTo(13)
         }
         
         tagLabel.snp.makeConstraints { make in
-            make.top.equalTo(memoLabel.snp.bottom).offset(5)
-            make.leading.equalTo(dateLabel.snp.trailing).offset(10)
-            make.trailing.equalTo(contentView).inset(10)
+            make.top.equalTo(memoLabel.snp.bottom).offset(8)
+            make.leading.equalTo(dateLabel.snp.trailing).offset(5)
             make.height.equalTo(13)
+        }
+        
+        image.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(8)
+            make.size.equalTo(60)
         }
     }
 
@@ -100,12 +106,12 @@ class AllPlanTableViewCell: UITableViewCell {
         priorityLabel.text = "완전 안중요한데 하고싶음"
         priorityLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         priorityLabel.textColor = .white
-        priorityLabel.textAlignment = .right
         
         tagLabel.text = "쇼핑"
         tagLabel.font = .systemFont(ofSize: 13, weight: .medium)
         tagLabel.textColor = .darkGray
-        tagLabel.textAlignment = .right
+        
+        image.backgroundColor = .green
       
     }
     
