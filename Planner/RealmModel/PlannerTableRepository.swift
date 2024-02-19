@@ -5,7 +5,7 @@
 //  Created by 민지은 on 2024/02/18.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
 final class PlannerTableRepository {
@@ -34,23 +34,22 @@ final class PlannerTableRepository {
     
     func fetchLaterFilter() -> Results<PlannerTable> {
 
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = "yyyy-MM-dd"
-        let today = dateformat.date(from: dateformat.string(from: Date()))!
-
-        return realm.objects(PlannerTable.self).filter("date >= %@", Date(timeInterval: 86400, since: today)).where {
+        let start = Calendar.current.startOfDay(for: Date())
+        let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+        let predicate = NSPredicate(format: "date >= %@",end as NSDate)
+        
+        return realm.objects(PlannerTable.self).filter(predicate).where {
             $0.complete == false
         }
-
     }
     
     func fetchTodayFilter() -> Results<PlannerTable> {
-        
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = "yyyy-MM-dd"
-        let today = dateformat.date(from: dateformat.string(from: Date()))!
 
-        return realm.objects(PlannerTable.self).filter("date > %@ AND date < %@", Date(timeInterval: -86400, since: today), Date(timeInterval: 86400, since: today)).where {
+        let start = Calendar.current.startOfDay(for: Date())
+        let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+        let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+        
+        return realm.objects(PlannerTable.self).filter(predicate).where {
             $0.complete == false
         }
     }
