@@ -47,6 +47,12 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(150)
             make.top.bottom.equalTo(backView).inset(10)
         }
+        
+        image.snp.makeConstraints { make in
+            make.centerY.equalTo(backView)
+            make.trailing.equalTo(backView).inset(15)
+            make.size.equalTo(15)
+        }
 
     }
     

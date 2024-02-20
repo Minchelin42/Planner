@@ -42,6 +42,10 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     var updateCount: ((_ delete: Bool) -> Void)?
     var delete: Bool = false
     
+    var selectList: PlannerList? = nil
+    
+    let realm = try! Realm()
+    
     lazy var selectImage: UIImage? = loadImageToDocument(filename: "\(editingData.id)")
     
     var type: PlanWriteType = .new
@@ -54,7 +58,8 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.date != nil ? changeDateFormat(editingData.date!) : "")"),
                                 PlanList(title: "태그", subTitle: "\(editingData.tag)"),
                                 PlanList(title: "우선순위", subTitle: "\(editingData.priority)"),
-                                PlanList(title: "이미지 추가", subTitle: "")]
+                                PlanList(title: "이미지 추가", subTitle: ""),
+                                     PlanList(title: "목록", subTitle: "\(editingData.list.first?.name ?? "")")]
     
     
     
@@ -132,7 +137,6 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         print(#function)
         
         if titleTextField.text!.isEmpty {
-            
             var style = ToastStyle()
             style.messageColor = .white
             style.backgroundColor = .gray
@@ -141,19 +145,34 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         } else {
             
             if type == .new {
+                
                 let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
-                repository.createItem(data)
-                
+                if let selectList = self.selectList {
+                    do {
+                        try realm.write {
+                            selectList.plan.append(data)
+                        }
+                    } catch {
+                        print(error)
+                    }
+                } else {
+                    repository.createItem(data)
+                }
+                print("이미지지지지ㅣ지지짖지지지지지직")
                 if let image = self.selectImage {
                     saveImageToDocument(image: image, filename: "\(data.id)")
                 }
 
             } else { //edit
-                repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
-                
-                if let image = self.selectImage {
-                    saveImageToDocument(image: image, filename: "\(editingData.id)")
+                if let selectList = self.selectList {
+                    //240221의 나에게..맡김..!
+                } else {
+                    repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                    
+                    if let image = self.selectImage {
+                        saveImageToDocument(image: image, filename: "\(editingData.id)")
+                    }
                 }
             }
             
@@ -214,7 +233,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     }
     
     func deadLineClicked() { //notiofication
-        let vc = DateViewController()
+        let vc = SelectDateViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -238,6 +257,17 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         vc.delegate = self
         vc.allowsEditing = true
         present(vc, animated: true)
+    }
+    
+    func selectListClicked() {
+        let vc = SelectListViewController()
+        
+        vc.selectList = { value in
+            self.selectList = value
+            self.planList[4].subTitle = value.name
+            self.collectionView.reloadData()
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -294,6 +324,7 @@ extension PlanNewViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 1: tagClicked()
         case 2: gradeClicked()
         case 3: plusImageClicked()
+        case 4: selectListClicked()
         default: print("오류발생")
         }
     }

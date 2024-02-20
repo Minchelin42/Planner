@@ -9,7 +9,21 @@ import Foundation
 import RealmSwift
 //제목, 메모, 마감일, 태그, 우선순위
 
-class PlannerTable: Object {
+final class PlannerList: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var name: String
+    @Persisted var regDate: Date
+    
+    @Persisted var plan: List<PlannerTable>
+    
+    convenience init(name: String, regDate: Date) {
+        self.init()
+        self.name = name
+        self.regDate = regDate
+    }
+}
+
+final class PlannerTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
@@ -17,6 +31,8 @@ class PlannerTable: Object {
     @Persisted var tag: String
     @Persisted var priority: String
     @Persisted(indexed: true) var complete: Bool
+    
+    @Persisted(originProperty: "plan") var list: LinkingObjects<PlannerList>
     
     convenience init(
         title: String,

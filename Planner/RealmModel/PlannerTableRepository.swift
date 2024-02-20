@@ -80,7 +80,7 @@ final class PlannerTableRepository {
         }
     }
     
-    func updatComplete(_ item: PlannerTable) {
+    func updateComplete(_ item: PlannerTable) {
         do {
             try realm.write {
                 item.complete.toggle()

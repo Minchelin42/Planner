@@ -19,14 +19,18 @@ struct PlanOption {
 class PlanViewController: BaseViewController {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-    
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let bottomView = UIView()
-    
     let newPlan = UIButton()
+    let newList = UIButton()
     
     let repository = PlannerTableRepository()
 
     var list: Results<PlannerTable>!
+    var listName: Results<PlannerList> = {
+        let realm = try! Realm()
+        return realm.objects(PlannerList.self)
+    }()
     
     let realm = try! Realm()
     
@@ -53,14 +57,23 @@ class PlanViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(tableView)
         view.addSubview(bottomView)
         view.addSubview(newPlan)
+        view.addSubview(newList)
     }
     
     override func configureLayout() {
         collectionView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(tableView.snp.top)
+            make.height.equalTo(400)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).inset(10)
             make.bottom.equalTo(bottomView.snp.top)
+            make.horizontalEdges.equalToSuperview()
         }
         
         bottomView.snp.makeConstraints { make in
@@ -72,6 +85,13 @@ class PlanViewController: BaseViewController {
             make.centerY.equalTo(bottomView)
             make.leading.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(150)
+            make.height.equalTo(40)
+        }
+        
+        newList.snp.makeConstraints { make in
+            make.centerY.equalTo(bottomView)
+            make.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.width.equalTo(90)
             make.height.equalTo(40)
         }
     }
@@ -91,6 +111,20 @@ class PlanViewController: BaseViewController {
         newPlan.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
 
         newPlan.addTarget(self, action: #selector(newPlanButtonClicked), for: .touchUpInside)
+        
+        newList.setTitle("목록 추가 ", for: .normal)
+        newList.tintColor = .systemBlue
+        newList.setTitleColor(.systemBlue, for: .normal)
+        newList.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+
+        newList.addTarget(self, action: #selector(newListButtonClicked), for: .touchUpInside)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.backgroundColor = .clear
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "List")
+        tableView.rowHeight = 60
     }
     
     @objc func newPlanButtonClicked() {
@@ -106,6 +140,18 @@ class PlanViewController: BaseViewController {
             self.planList[2].count = self.list.count
             
             self.collectionView.reloadData()
+            self.tableView.reloadData()
+        }
+        
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
+    }
+    
+    @objc func newListButtonClicked() {
+        let vc = NewListViewController()
+        
+        vc.update = {
+            self.tableView.reloadData()
         }
         
         let nav = UINavigationController(rootViewController: vc)
@@ -124,6 +170,71 @@ class PlanViewController: BaseViewController {
         
     }
 
+}
+
+extension PlanViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listName.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath) as! ListTableViewCell
+    
+        cell.title.text = listName[indexPath.row].name
+        cell.count.text = "\(listName[indexPath.row].plan.count)"
+            
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ListPlanViewController()
+        
+        vc.listName = listName[indexPath.row]
+        
+        vc.updateCount = {
+            
+            self.planList[0].count = self.repository.fetchTodayFilter().count
+            self.planList[1].count = self.repository.fetchLaterFilter().count
+            self.planList[2].count = self.repository.fetchCompleteFilter(false).count
+            self.collectionView.reloadData()
+            self.tableView.reloadData()
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
+            print("delete 버튼 클릭")
+            var style = ToastStyle()
+            style.messageColor = .white
+            style.backgroundColor = .gray
+
+            do {
+                try self.realm.write {
+                    self.realm.delete(self.listName[indexPath.row].plan)
+                    self.realm.delete(self.listName[indexPath.row])
+                }
+            } catch {
+                print(error)
+            }
+            
+            self.view.makeToast("삭제되었습니다", duration: 2.0, position: .bottom, style: style)
+            tableView.deleteRows(at: [indexPath], with: .middle)
+            
+            self.planList[0].count = self.repository.fetchTodayFilter().count
+            self.planList[1].count = self.repository.fetchLaterFilter().count
+            self.planList[2].count = self.repository.fetchCompleteFilter(false).count
+            self.collectionView.reloadData()
+        }
+        
+        delete.image = UIImage(systemName: "trash")
+        delete.backgroundColor = .systemRed
+        
+       
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
 }
 
 extension PlanViewController: UICollectionViewDelegate, UICollectionViewDataSource {
