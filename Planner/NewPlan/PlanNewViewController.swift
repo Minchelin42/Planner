@@ -47,7 +47,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     var type: PlanWriteType = .new
     
     var editingData: PlannerTable = PlannerTable(title: "", date: nil, tag: "", priority: "")
-    var changeDate: Date? = nil
+    lazy var changeDate: Date? = editingData.date
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
