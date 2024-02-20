@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewImageCollectionViewCell: UICollectionViewCell {
+final class NewImageCollectionViewCell: UICollectionViewCell {
 
     let backView = UIView()
     let title = UILabel()
@@ -24,7 +24,7 @@ class NewImageCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(backView)
         contentView.addSubview(title)
         contentView.addSubview(subTitle)
@@ -32,7 +32,7 @@ class NewImageCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(image)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         backView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -64,7 +64,7 @@ class NewImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureView() {
+    private func configureView() {
         backView.backgroundColor = .darkGray
         backView.clipsToBounds = true
         backView.layer.cornerRadius = 13

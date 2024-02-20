@@ -22,7 +22,7 @@ class AllPlanViewController: BaseViewController {
     
     var updateCount: (() -> Void)?
     
-    let repository = PlannerTableRepository()
+    private let repository = PlannerTableRepository()
     
     var type: PlanListFilter = .all
     

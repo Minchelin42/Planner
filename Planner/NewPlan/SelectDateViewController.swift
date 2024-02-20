@@ -20,7 +20,7 @@ class SelectDateViewController: BaseViewController {
     
     let realm = try! Realm()
     
-    let repository = PlannerTableRepository()
+    private let repository = PlannerTableRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()

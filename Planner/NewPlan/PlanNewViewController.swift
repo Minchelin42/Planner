@@ -37,7 +37,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
-    let repository = PlannerTableRepository()
+    private let repository = PlannerTableRepository()
     
     var updateCount: ((_ delete: Bool) -> Void)?
     var delete: Bool = false

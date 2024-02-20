@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewPlanCollectionViewCell: UICollectionViewCell {
+final class NewPlanCollectionViewCell: UICollectionViewCell {
     
     let backView = UIView()
     let title = UILabel()
@@ -22,14 +22,14 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(backView)
         contentView.addSubview(title)
         contentView.addSubview(subTitle)
         contentView.addSubview(image)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         backView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -56,7 +56,7 @@ class NewPlanCollectionViewCell: UICollectionViewCell {
 
     }
     
-    func configureView() {
+    private func configureView() {
         backView.backgroundColor = .darkGray
         backView.clipsToBounds = true
         backView.layer.cornerRadius = 13

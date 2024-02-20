@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewPlanMemoCollectionViewCell: UICollectionViewCell {
+final class NewPlanMemoCollectionViewCell: UICollectionViewCell {
     
     let textInputView = UIView()
     let grayLine = UIView()
@@ -22,14 +22,14 @@ class NewPlanMemoCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(textInputView)
         contentView.addSubview(grayLine)
         contentView.addSubview(titleTextField)
         contentView.addSubview(memoTextField)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         textInputView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView).inset(10)
             make.height.equalTo(150)
@@ -54,7 +54,7 @@ class NewPlanMemoCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureView() {
+    private func configureView() {
         textInputView.backgroundColor = .white
         textInputView.clipsToBounds = true
         textInputView.layer.cornerRadius = 10

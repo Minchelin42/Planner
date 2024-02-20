@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PlanCollectionViewCell: UICollectionViewCell {
+final class PlanCollectionViewCell: UICollectionViewCell {
     
     let backView = UIView()
     let imageBack = UIView()
@@ -24,7 +24,7 @@ class PlanCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(backView)
         contentView.addSubview(imageBack)
         contentView.addSubview(image)
@@ -32,7 +32,7 @@ class PlanCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(count)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         backView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -62,7 +62,7 @@ class PlanCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureView() {
+    private func configureView() {
         backView.backgroundColor = .darkGray
         backView.clipsToBounds = true
         backView.layer.cornerRadius = 15

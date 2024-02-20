@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ListTableViewCell: UITableViewCell {
+final class ListTableViewCell: UITableViewCell {
 
     let backView = UIView()
     let listImage = UIImageView()
@@ -26,7 +26,7 @@ class ListTableViewCell: UITableViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(backView)
         contentView.addSubview(listImage)
         contentView.addSubview(title)
@@ -34,7 +34,7 @@ class ListTableViewCell: UITableViewCell {
         contentView.addSubview(chevronImage)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         backView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(contentView).inset(10)
@@ -64,7 +64,7 @@ class ListTableViewCell: UITableViewCell {
         
     }
 
-    func configureView() {
+    private func configureView() {
         backView.clipsToBounds = true
         backView.layer.cornerRadius = 20
         backView.backgroundColor = .systemOrange

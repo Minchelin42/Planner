@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AllPlanTableViewCell: UITableViewCell {
+final class AllPlanTableViewCell: UITableViewCell {
 
     let checkButton = UIButton()
     let titleLabel = UILabel()
@@ -28,7 +28,7 @@ class AllPlanTableViewCell: UITableViewCell {
         configureView()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(checkButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(memoLabel)
@@ -38,7 +38,7 @@ class AllPlanTableViewCell: UITableViewCell {
         contentView.addSubview(image)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         
         checkButton.snp.makeConstraints { make in
             make.top.equalTo(8)
@@ -85,7 +85,7 @@ class AllPlanTableViewCell: UITableViewCell {
         }
     }
 
-    func configureView() {
+    private func configureView() {
         checkButton.clipsToBounds = true
         checkButton.layer.cornerRadius = 7.5
         checkButton.layer.borderColor = UIColor.gray.cgColor

@@ -16,7 +16,7 @@ class ListPlanViewController: BaseViewController {
 
     var listName: PlannerList!
     
-    let repository = PlannerTableRepository()
+    private let repository = PlannerTableRepository()
 
     lazy var sortDateLate = UIAction(title: "마감일 느린순") { action in
 

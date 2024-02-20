@@ -24,7 +24,7 @@ class PlanViewController: BaseViewController {
     let newPlan = UIButton()
     let newList = UIButton()
     
-    let repository = PlannerTableRepository()
+    private let repository = PlannerTableRepository()
 
     var list: Results<PlannerTable>!
     var listName: Results<PlannerList> = {
