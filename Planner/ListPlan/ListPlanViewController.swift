@@ -7,6 +7,7 @@
 
 import UIKit
 import Toast
+import RealmSwift
 
 class ListPlanViewController: BaseViewController {
     
@@ -16,18 +17,29 @@ class ListPlanViewController: BaseViewController {
 
     var listName: PlannerList!
     
+    lazy var listPlan: Results<PlannerTable> = {
+        return self.listName.plan.where {
+            $0.title != ""
+        }.sorted(byKeyPath: "regDate", ascending: false)
+    }()
+    
     private let repository = PlannerTableRepository()
 
     lazy var sortDateLate = UIAction(title: "마감일 느린순") { action in
-
+        print(#function)
+        self.listPlan = self.repository.fetchSortedData("deadLine", ascending: false, list: self.listPlan)
+        self.tableView.reloadData()
     }
     
     lazy var sortDateEarly = UIAction(title: "마감일 빠른순") { action in
-  
+        print(#function)
+        self.listPlan = self.repository.fetchSortedData("deadLine", ascending: true, list: self.listPlan)
+        self.tableView.reloadData()
     }
     
     lazy var sortTitle = UIAction(title: "제목순") { action in
-
+        self.listPlan = self.repository.fetchSortedData("title", ascending: true, list: self.listPlan)
+        self.tableView.reloadData()
     }
     
     lazy var menu: UIMenu = {
@@ -81,13 +93,13 @@ class ListPlanViewController: BaseViewController {
 
 extension ListPlanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listName.plan.count
+        return listPlan.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllPlanTableViewCell", for: indexPath) as! AllPlanTableViewCell
         
-        let row = listName.plan[indexPath.row]
+        let row = listPlan[indexPath.row]
         
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
