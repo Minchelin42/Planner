@@ -36,7 +36,7 @@ final class PlannerTableRepository {
 
         let start = Calendar.current.startOfDay(for: Date())
         let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
-        let predicate = NSPredicate(format: "date >= %@",end as NSDate)
+        let predicate = NSPredicate(format: "deadLine >= %@",end as NSDate)
         
         return realm.objects(PlannerTable.self).filter(predicate).where {
             $0.complete == false
@@ -47,7 +47,7 @@ final class PlannerTableRepository {
 
         let start = Calendar.current.startOfDay(for: Date())
         let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
-        let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+        let predicate = NSPredicate(format: "deadLine >= %@ && deadLine < %@", start as NSDate, end as NSDate)
         
         return realm.objects(PlannerTable.self).filter(predicate).where {
             $0.complete == false
@@ -55,22 +55,22 @@ final class PlannerTableRepository {
     }
     
     func fetchSortedData(_ keyPath: String, ascending: Bool, list: Results<PlannerTable>) -> Results<PlannerTable> {
-        if keyPath == "date" {
+        if keyPath == "deadLine" {
             return list.where {
-                $0.date != nil
+                $0.deadLine != nil
             }.sorted(byKeyPath: keyPath, ascending: ascending)
         } else {
             return list.sorted(byKeyPath: keyPath, ascending: ascending)
         }
     }
     
-    func updateItem(id: ObjectId, title: String, memo: String, date: Date?, tag: String, priority: String) {
+    func updateItem(id: ObjectId, title: String, memo: String, deadLine: Date?, tag: String, priority: String) {
         do {
             try realm.write {
                 realm.create(PlannerTable.self, value: [
                     "id" : id, "title" : title,
                     "memo" : memo,
-                    "date" : date,
+                    "deadLine" : deadLine,
                     "tag" : tag,
                     "priority" : priority],
                     update: .modified)

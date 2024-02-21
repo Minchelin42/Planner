@@ -47,6 +47,14 @@ class PlanViewController: BaseViewController {
         print(realm.configuration.fileURL)
         
         list = repository.fetchCompleteFilter(false)
+        
+        //Scheme Version 확인
+        do {
+            let version = try schemaVersionAtURL(realm.configuration.fileURL!)
+            print("Realm Schema Version: \(version)")
+        } catch {
+            print(error)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

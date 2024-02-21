@@ -91,7 +91,7 @@ extension ListPlanViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
-        cell.dateLabel.text = row.date != nil ? changeDateFormat(row.date!) : ""
+        cell.dateLabel.text = row.deadLine != nil ? changeDateFormat(row.deadLine!) : ""
         switch row.priority {
         case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
         case "중간": cell.priorityLabel.text = "⭐️⭐️"

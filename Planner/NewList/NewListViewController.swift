@@ -83,6 +83,19 @@ class NewListViewController: BaseViewController {
                 print(error)
             }
             
+            let memo = Memo()
+            memo.editDate = Date()
+            memo.regDate = Date()
+            memo.writer = "\(nameTextField.text!) 생성자: 지은"
+            
+            do {
+                try realm.write {
+                    data.memo = memo
+                }
+            } catch {
+                print(error)
+            }
+            
             dismiss(animated: true)
         } else {
             var style = ToastStyle()

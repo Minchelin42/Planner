@@ -36,12 +36,12 @@ class AllPlanViewController: BaseViewController {
     }()
 
     lazy var sortDateLate = UIAction(title: "마감일 느린순") { action in
-        self.list = self.repository.fetchSortedData("date", ascending: false, list: self.list)
+        self.list = self.repository.fetchSortedData("deadLine", ascending: false, list: self.list)
         self.tableView.reloadData()
     }
     
     lazy var sortDateEarly = UIAction(title: "마감일 빠른순") { action in
-        self.list = self.repository.fetchSortedData("date", ascending: true, list: self.list)
+        self.list = self.repository.fetchSortedData("deadLine", ascending: true, list: self.list)
         self.tableView.reloadData()
     }
     
@@ -112,7 +112,7 @@ extension AllPlanViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
-        cell.dateLabel.text = row.date != nil ? changeDateFormat(row.date!) : ""
+        cell.dateLabel.text = row.deadLine != nil ? changeDateFormat(row.deadLine!) : ""
         switch row.priority {
         case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
         case "중간": cell.priorityLabel.text = "⭐️⭐️"

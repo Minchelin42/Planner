@@ -90,7 +90,7 @@ extension SelectDateViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.titleLabel.text = row.title
         cell.memoLabel.text = row.memo
-        cell.dateLabel.text = row.date != nil ? changeDateFormat(row.date!) : ""
+        cell.dateLabel.text = row.deadLine != nil ? changeDateFormat(row.deadLine!) : ""
         switch row.priority {
         case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
         case "중간": cell.priorityLabel.text = "⭐️⭐️"
@@ -127,7 +127,7 @@ extension SelectDateViewController: FSCalendarDelegate, FSCalendarDataSource {
         let start = Calendar.current.startOfDay(for: date)
         let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? date
 
-        let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+        let predicate = NSPredicate(format: "deadLine >= %@ && deadLine < %@", start as NSDate, end as NSDate)
         
         list = realm.objects(PlannerTable.self).filter(predicate)
         
@@ -143,7 +143,7 @@ extension SelectDateViewController: FSCalendarDelegate, FSCalendarDataSource {
 
         let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? date
 
-        let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+        let predicate = NSPredicate(format: "deadLine >= %@ && deadLine < %@", start as NSDate, end as NSDate)
         
         //해당 날짜로 일정 저장하기
         let dateformat = DateFormatter()

@@ -6,12 +6,46 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let configuration = Realm.Configuration(schemaVersion: 4) { migration, oldSchemaVersion in
+            
+            // 1: PlannerList에 Memo 추가
+            if oldSchemaVersion < 1 {
+                print("Schema 0 -> 1")
+            }
+            
+            // 2: PlannerTable에 regDate 추가
+            if oldSchemaVersion < 2 {
+                print("Schema 1 -> 2")
+            }
+            
+            // 3: PlannerTable의 date 컬럼명을 deadLine으로 변경
+            if oldSchemaVersion < 3 {
+                print("Schema 2 -> 3")
+                migration.renameProperty(onType: PlannerTable.className(), from: "date", to: "deadLine")
+            }
+            
+            // 4: PlannerTable에 writer 추가 + writer 컬럼에 컨텐츠 넣기
+            if oldSchemaVersion < 4 {
+                print("Schema 3 -> 4")
+                migration.enumerateObjects(ofType: PlannerTable.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    new["writer"] = "지은"
+                }
+            }
+            
+            
+        }
+        
+        Realm.Configuration.defaultConfiguration = configuration
+        
         return true
     }
 

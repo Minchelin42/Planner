@@ -50,12 +50,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     
     var type: PlanWriteType = .new
     
-    var editingData: PlannerTable = PlannerTable(title: "", date: nil, tag: "", priority: "")
-    lazy var changeDate: Date? = editingData.date
+    var editingData: PlannerTable = PlannerTable(title: "", deadLine: nil, tag: "", priority: "")
+    lazy var changeDate: Date? = editingData.deadLine
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
-    lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.date != nil ? changeDateFormat(editingData.date!) : "")"),
+    lazy var planList: [PlanList] = [PlanList(title: "마감일", subTitle: "\(editingData.deadLine != nil ? changeDateFormat(editingData.deadLine!) : "")"),
                                 PlanList(title: "태그", subTitle: "\(editingData.tag)"),
                                 PlanList(title: "우선순위", subTitle: "\(editingData.priority)"),
                                 PlanList(title: "이미지 추가", subTitle: ""),
@@ -146,7 +146,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
             
             if type == .new {
                 
-                let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, deadLine: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
                 if let selectList = self.selectList {
                     do {
@@ -168,7 +168,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
                 if let selectList = self.selectList {
                     //240221의 나에게..맡김..!
                 } else {
-                    repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, date: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                    repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, deadLine: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                     
                     if let image = self.selectImage {
                         saveImageToDocument(image: image, filename: "\(editingData.id)")
