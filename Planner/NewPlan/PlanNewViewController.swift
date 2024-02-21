@@ -38,6 +38,7 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     let memoTextField = UITextField()
     
     private let repository = PlannerTableRepository()
+    private let listRepository = PlannerListRepository()
     
     var updateCount: ((_ delete: Bool) -> Void)?
     var delete: Bool = false
@@ -149,24 +150,45 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
                 let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, deadLine: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                 
                 if let selectList = self.selectList {
-                    do {
-                        try realm.write {
-                            selectList.plan.append(data)
-                        }
-                    } catch {
-                        print(error)
-                    }
+                    
+                    listRepository.inputPlan(selectList, plan: data)
+
                 } else {
                     repository.createItem(data)
                 }
-                print("이미지지지지ㅣ지지짖지지지지지직")
+
                 if let image = self.selectImage {
                     saveImageToDocument(image: image, filename: "\(data.id)")
                 }
 
             } else { //edit
                 if let selectList = self.selectList {
-                    //240221의 나에게..맡김..!
+                    let data = PlannerTable(title: titleTextField.text!, memo: memoTextField.text!, deadLine: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
+                    
+                    listRepository.inputPlan(selectList, plan: data)
+
+                    if let image = self.selectImage {
+                        saveImageToDocument(image: image, filename: "\(data.id)")
+                    }
+                    //이걸 삭제하면 저게 안되고...저걸하면 이게 안되고ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ왜ㅠㅠㅠㅠㅠㅠㅠ
+                    if let originList = editingData.list.first {
+                        print(originList)
+                        if let index = originList.plan.firstIndex(where: { $0.id == editingData.id }) {
+                            print(index)
+                            do {
+                                try realm.write {
+                                    print("삭제중")
+                                    originList.plan.remove(at: index)
+                                }
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+
+//                    repository.deleteItem(editingData)
+//                    removeImageToDocument(filename: "\(editingData.id)")
+
                 } else {
                     repository.updateItem(id: editingData.id, title: titleTextField.text!, memo: memoTextField.text!, deadLine: changeDate, tag: planList[Plan.tag.rawValue].subTitle, priority: planList[Plan.priority.rawValue].subTitle)
                     
@@ -174,6 +196,8 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
                         saveImageToDocument(image: image, filename: "\(editingData.id)")
                     }
                 }
+                
+               
             }
             
             dismiss(animated: true)

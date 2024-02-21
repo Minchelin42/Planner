@@ -20,6 +20,8 @@ class NewListViewController: BaseViewController {
     
     let realm = try! Realm()
     
+    private let repository = PlannerListRepository()
+    
     var update: (() -> Void)?
 
     override func viewDidLoad() {
@@ -27,7 +29,7 @@ class NewListViewController: BaseViewController {
         
         view.backgroundColor = .black
         
-        list = realm.objects(PlannerList.self)
+        list = repository.fetchList()
         
     }
     
@@ -75,26 +77,14 @@ class NewListViewController: BaseViewController {
         let data = PlannerList(name: nameTextField.text!, regDate: Date())
         
         if !nameTextField.text!.isEmpty {
-            do {
-                try realm.write {
-                    realm.add(data)
-                }
-            } catch {
-                print(error)
-            }
+            repository.createList(data)
             
             let memo = Memo()
             memo.editDate = Date()
             memo.regDate = Date()
             memo.writer = "\(nameTextField.text!) 생성자: 지은"
-            
-            do {
-                try realm.write {
-                    data.memo = memo
-                }
-            } catch {
-                print(error)
-            }
+
+            repository.createMemo(data, memo: memo)
             
             dismiss(animated: true)
         } else {

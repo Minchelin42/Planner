@@ -12,9 +12,20 @@ class SelectListViewController: BaseViewController {
 
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
+    private let listRepository = PlannerListRepository()
+    
     var select: PlannerList?
     var selectList: ((PlannerList) -> Void)?
 
+    var listName: Results<PlannerList>!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        listName = listRepository.fetchList()
+        view.backgroundColor = .black
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -22,17 +33,6 @@ class SelectListViewController: BaseViewController {
             selectList?(select)
         }
     
-    }
-    
-    
-    var listName: Results<PlannerList> = {
-        let realm = try! Realm()
-        return realm.objects(PlannerList.self)
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
     }
     
     override func configureHierarchy() {

@@ -58,6 +58,8 @@ class AllPlanViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.list = self.list.sorted(byKeyPath: "regDate", ascending: false)
+        
         view.backgroundColor = .black
 
     }

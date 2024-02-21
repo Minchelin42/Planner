@@ -37,6 +37,7 @@
 		39DBBDE72B84E8DC005A8B8A /* ListPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDE62B84E8DC005A8B8A /* ListPlanViewController.swift */; };
 		39DBBDEA2B850284005A8B8A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 39DBBDE92B850284005A8B8A /* FSCalendar */; };
 		39DBBDEC2B85029E005A8B8A /* SelectDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDEB2B85029E005A8B8A /* SelectDateViewController.swift */; };
+		39DBBDF72B866AB8005A8B8A /* PlannerListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDF62B866AB8005A8B8A /* PlannerListRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		39DBBDE32B84DA12005A8B8A /* SelectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListViewController.swift; sourceTree = "<group>"; };
 		39DBBDE62B84E8DC005A8B8A /* ListPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPlanViewController.swift; sourceTree = "<group>"; };
 		39DBBDEB2B85029E005A8B8A /* SelectDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateViewController.swift; sourceTree = "<group>"; };
+		39DBBDF62B866AB8005A8B8A /* PlannerListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerListRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			children = (
 				390C23B62B7E188200792385 /* RealmModel.swift */,
 				399432222B823C07004609DD /* PlannerTableRepository.swift */,
+				39DBBDF62B866AB8005A8B8A /* PlannerListRepository.swift */,
 			);
 			path = RealmModel;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */,
 				390C23AF2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift in Sources */,
 				390C237B2B7D0A7700792385 /* SceneDelegate.swift in Sources */,
+				39DBBDF72B866AB8005A8B8A /* PlannerListRepository.swift in Sources */,
 				39BCE3952B83A1B40037D809 /* FileManager+Extension.swift in Sources */,
 				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
 				399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */,

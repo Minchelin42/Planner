@@ -32,4 +32,19 @@ extension UIViewController {
             print("file save error", error)
         }
     }
+    
+    func removeImageToDocument(filename: String) {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
+        
+        if FileManager.default.fileExists(atPath: fileURL.path()) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path())
+            } catch {
+                print("file remove error", error)
+            }
+        } else {
+            print("file no exist")
+        }
+    }
 }

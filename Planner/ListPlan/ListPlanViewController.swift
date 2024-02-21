@@ -18,9 +18,7 @@ class ListPlanViewController: BaseViewController {
     var listName: PlannerList!
     
     lazy var listPlan: Results<PlannerTable> = {
-        return self.listName.plan.where {
-            $0.title != ""
-        }.sorted(byKeyPath: "regDate", ascending: false)
+        return self.listName.plan.sorted(byKeyPath: "regDate", ascending: false)
     }()
     
     private let repository = PlannerTableRepository()

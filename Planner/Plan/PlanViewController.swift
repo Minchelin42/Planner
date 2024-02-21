@@ -25,12 +25,10 @@ class PlanViewController: BaseViewController {
     let newList = UIButton()
     
     private let repository = PlannerTableRepository()
+    private let listRepository = PlannerListRepository()
 
     var list: Results<PlannerTable>!
-    var listName: Results<PlannerList> = {
-        let realm = try! Realm()
-        return realm.objects(PlannerList.self)
-    }()
+    var listName: Results<PlannerList>!
     
     let realm = try! Realm()
     
@@ -47,6 +45,7 @@ class PlanViewController: BaseViewController {
         print(realm.configuration.fileURL)
         
         list = repository.fetchCompleteFilter(false)
+        listName = listRepository.fetchList()
         
         //Scheme Version 확인
         do {
@@ -218,14 +217,7 @@ extension PlanViewController: UITableViewDelegate, UITableViewDataSource {
             style.messageColor = .white
             style.backgroundColor = .gray
 
-            do {
-                try self.realm.write {
-                    self.realm.delete(self.listName[indexPath.row].plan)
-                    self.realm.delete(self.listName[indexPath.row])
-                }
-            } catch {
-                print(error)
-            }
+            self.listRepository.deleteList(self.listName[indexPath.row])
             
             self.view.makeToast("삭제되었습니다", duration: 2.0, position: .bottom, style: style)
             tableView.deleteRows(at: [indexPath], with: .middle)
