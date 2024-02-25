@@ -18,6 +18,8 @@ struct PlanOption {
 
 class PlanViewController: BaseViewController {
     
+    let searchBar = UISearchBar()
+    let resultTableView = UITableView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let bottomView = UIView()
@@ -63,18 +65,26 @@ class PlanViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
+        view.addSubview(searchBar)
         view.addSubview(collectionView)
         view.addSubview(tableView)
         view.addSubview(bottomView)
         view.addSubview(newPlan)
         view.addSubview(newList)
+        view.addSubview(resultTableView)
     }
     
     override func configureLayout() {
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         collectionView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
+            make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(tableView.snp.top)
-            make.height.equalTo(400)
+            make.height.equalTo(300)
         }
         
         tableView.snp.makeConstraints { make in
@@ -101,9 +111,19 @@ class PlanViewController: BaseViewController {
             make.width.equalTo(90)
             make.height.equalTo(40)
         }
+        
+        resultTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
+            make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
     }
     
     override func configureView() {
+        searchBar.delegate = self
+        searchBar.barTintColor = .black
+        searchBar.searchTextField.textColor = .white
+
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(PlanCollectionViewCell.self, forCellWithReuseIdentifier: "Plan")
@@ -132,6 +152,14 @@ class PlanViewController: BaseViewController {
         tableView.backgroundColor = .clear
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "List")
         tableView.rowHeight = 60
+        
+        resultTableView.backgroundColor = .black
+        resultTableView.rowHeight = 80
+        resultTableView.delegate = self
+        resultTableView.dataSource = self
+        resultTableView.register(AllPlanTableViewCell.self, forCellReuseIdentifier: "AllPlanTableViewCell")
+        resultTableView.allowsSelection = false
+        resultTableView.isHidden = true
     }
     
     @objc func newPlanButtonClicked() {
@@ -165,12 +193,26 @@ class PlanViewController: BaseViewController {
         present(nav, animated: true)
     }
     
+    @objc func checkButtonClicked(_ sender: UIButton) {
+
+        if sender.currentImage == UIImage(systemName: "checkmark.circle.fill") {
+            sender.setImage(nil, for: .normal)
+        } else {
+            sender.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        }
+        let row = list[sender.tag]
+
+        repository.updateComplete(row)
+        self.resultTableView.reloadData()
+
+    }
+    
     static func configureCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - 30) / 2, height: (UIScreen.main.bounds.width - 30) / 4)
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - 50) / 2, height: (UIScreen.main.bounds.width - 30) / 4)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         layout.scrollDirection = .vertical
 
         return layout
@@ -179,18 +221,66 @@ class PlanViewController: BaseViewController {
 
 }
 
+extension PlanViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.resultTableView.isHidden = false
+        self.list = realm.objects(PlannerTable.self).where {
+            $0.title.contains(searchText, options: .caseInsensitive)
+        }
+        self.resultTableView.reloadData()
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.resultTableView.isHidden = true
+        searchBar.searchTextField.text = ""
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+    }
+    
+}
+
 extension PlanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listName.count
+        if tableView == self.resultTableView {
+            return list.count
+        } else {
+            return listName.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath) as! ListTableViewCell
-    
-        cell.title.text = listName[indexPath.row].name
-        cell.count.text = "\(listName[indexPath.row].plan.count)"
+        if tableView == self.resultTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AllPlanTableViewCell", for: indexPath) as! AllPlanTableViewCell
             
-        return cell
+            let row = list[indexPath.row]
+            
+            cell.titleLabel.text = row.title
+            cell.memoLabel.text = row.memo
+            cell.dateLabel.text = row.deadLine != nil ? changeDateFormat(row.deadLine!) : ""
+            switch row.priority {
+            case "높음": cell.priorityLabel.text = "⭐️⭐️⭐️"
+            case "중간": cell.priorityLabel.text = "⭐️⭐️"
+            case "낮음": cell.priorityLabel.text = "⭐️"
+            default :  cell.priorityLabel.text = ""
+            }
+            cell.tagLabel.text = row.tag.isEmpty ? "" : "#\(row.tag)"
+            cell.checkButton.setImage(row.complete ? UIImage(systemName: "checkmark.circle.fill") : nil, for: .normal)
+            cell.checkButton.tintColor = .gray
+            cell.checkButton.addTarget(self, action: #selector(checkButtonClicked(_:)), for: .touchUpInside)
+            cell.checkButton.tag = indexPath.row
+            cell.image.image = loadImageToDocument(filename: "\(row.id)")
+
+            return cell
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath) as! ListTableViewCell
+            
+            cell.title.text = listName[indexPath.row].name
+            cell.count.text = "\(listName[indexPath.row].plan.count)"
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
