@@ -90,13 +90,6 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         self.collectionView.reloadData()
     }
     
-    func changeDateFormat(_ date: Date) -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy년 MM월 dd일"
-        let result = format.string(from: date)
-        return result
-    }
-    
     override func configureHierarchy() {
         view.addSubview(textInputView)
         view.addSubview(grayLine)

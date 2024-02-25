@@ -93,13 +93,6 @@ class AllPlanViewController: BaseViewController {
         tableView.allowsSelection = false
     }
     
-    func changeDateFormat(_ date: Date) -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy년 MM월 dd일"
-        let result = format.string(from: date)
-        return result
-    }
-    
 }
 
 extension AllPlanViewController: UITableViewDelegate, UITableViewDataSource {

@@ -39,7 +39,6 @@ class SearchImageViewController: BaseViewController {
     override func configureLayout() {
         searchBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(50)
         }
         
         collectionView.snp.makeConstraints { make in
