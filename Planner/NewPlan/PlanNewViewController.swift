@@ -277,10 +277,12 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
     }
     
     func plusImageClicked() {
-        let vc = UIImagePickerController()
-        vc.delegate = self
-        vc.allowsEditing = true
-        present(vc, animated: true)
+        let vc = SelectImageViewController()
+        vc.getImage = { value in
+            self.selectImage = value
+            self.collectionView.reloadData()
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func selectListClicked() {
@@ -294,24 +296,6 @@ class PlanNewViewController: BaseViewController, PassDataDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-}
-
-extension PlanNewViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print(#function)
-        dismiss(animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print(#function)
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            print("이미지 추가됨")
-            self.selectImage = pickedImage
-            collectionView.reloadData()
-        }
-        
-        dismiss(animated: true)
-    }
 }
 
 extension PlanNewViewController: UICollectionViewDelegate, UICollectionViewDataSource {

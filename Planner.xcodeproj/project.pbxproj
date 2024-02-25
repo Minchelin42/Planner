@@ -29,6 +29,14 @@
 		390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */; };
 		390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */; };
 		399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399432222B823C07004609DD /* PlannerTableRepository.swift */; };
+		39A89FD42B8AD92F00FAF370 /* SearchImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A89FD32B8AD92F00FAF370 /* SearchImageViewController.swift */; };
+		39A89FD62B8AE93700FAF370 /* SearchImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A89FD52B8AE93700FAF370 /* SearchImageCollectionViewCell.swift */; };
+		39A89FD82B8AEB5A00FAF370 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 39A89FD72B8AEB5A00FAF370 /* .gitignore */; };
+		39A89FDA2B8AEB8E00FAF370 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A89FD92B8AEB8E00FAF370 /* APIKey.swift */; };
+		39A89FDD2B8AEBC600FAF370 /* NaverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A89FDC2B8AEBC600FAF370 /* NaverModel.swift */; };
+		39A89FDF2B8AEBE000FAF370 /* NaverAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A89FDE2B8AEBE000FAF370 /* NaverAPIManager.swift */; };
+		39A89FE22B8AEC0300FAF370 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 39A89FE12B8AEC0300FAF370 /* Alamofire */; };
+		39A89FE52B8B049700FAF370 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 39A89FE42B8B049700FAF370 /* Kingfisher */; };
 		39BCE3952B83A1B40037D809 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BCE3942B83A1B40037D809 /* FileManager+Extension.swift */; };
 		39BCE3982B83AA5A0037D809 /* NewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BCE3972B83AA5A0037D809 /* NewImageCollectionViewCell.swift */; };
 		39DBBDDF2B848821005A8B8A /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDDE2B848821005A8B8A /* NewListViewController.swift */; };
@@ -38,6 +46,7 @@
 		39DBBDEA2B850284005A8B8A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 39DBBDE92B850284005A8B8A /* FSCalendar */; };
 		39DBBDEC2B85029E005A8B8A /* SelectDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDEB2B85029E005A8B8A /* SelectDateViewController.swift */; };
 		39DBBDF72B866AB8005A8B8A /* PlannerListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBDF62B866AB8005A8B8A /* PlannerListRepository.swift */; };
+		39DBBE5D2B89B7C6005A8B8A /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DBBE5C2B89B7C6005A8B8A /* SelectImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +70,12 @@
 		390C23BB2B7E1F9C00792385 /* AllPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanViewController.swift; sourceTree = "<group>"; };
 		390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPlanTableViewCell.swift; sourceTree = "<group>"; };
 		399432222B823C07004609DD /* PlannerTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableRepository.swift; sourceTree = "<group>"; };
+		39A89FD32B8AD92F00FAF370 /* SearchImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageViewController.swift; sourceTree = "<group>"; };
+		39A89FD52B8AE93700FAF370 /* SearchImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		39A89FD72B8AEB5A00FAF370 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		39A89FD92B8AEB8E00FAF370 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		39A89FDC2B8AEBC600FAF370 /* NaverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverModel.swift; sourceTree = "<group>"; };
+		39A89FDE2B8AEBE000FAF370 /* NaverAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAPIManager.swift; sourceTree = "<group>"; };
 		39BCE3942B83A1B40037D809 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		39BCE3972B83AA5A0037D809 /* NewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		39DBBDDE2B848821005A8B8A /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +84,7 @@
 		39DBBDE62B84E8DC005A8B8A /* ListPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPlanViewController.swift; sourceTree = "<group>"; };
 		39DBBDEB2B85029E005A8B8A /* SelectDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateViewController.swift; sourceTree = "<group>"; };
 		39DBBDF62B866AB8005A8B8A /* PlannerListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerListRepository.swift; sourceTree = "<group>"; };
+		39DBBE5C2B89B7C6005A8B8A /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +94,9 @@
 			files = (
 				390C23BA2B7E1D7900792385 /* Toast in Frameworks */,
 				390C23B42B7E184600792385 /* RealmSwift in Frameworks */,
+				39A89FE52B8B049700FAF370 /* Kingfisher in Frameworks */,
 				390C23B22B7E184600792385 /* Realm in Frameworks */,
+				39A89FE22B8AEC0300FAF370 /* Alamofire in Frameworks */,
 				39DBBDEA2B850284005A8B8A /* FSCalendar in Frameworks */,
 				390C23982B7D10D500792385 /* SnapKit in Frameworks */,
 			);
@@ -90,6 +108,7 @@
 		390C236C2B7D0A7700792385 = {
 			isa = PBXGroup;
 			children = (
+				39A89FD72B8AEB5A00FAF370 /* .gitignore */,
 				390C23772B7D0A7700792385 /* Planner */,
 				390C23762B7D0A7700792385 /* Products */,
 			);
@@ -117,10 +136,12 @@
 				390C23782B7D0A7700792385 /* AppDelegate.swift */,
 				390C237A2B7D0A7700792385 /* SceneDelegate.swift */,
 				390C237C2B7D0A7700792385 /* ViewController.swift */,
+				39A89FDB2B8AEBB000FAF370 /* Network */,
 				390C237E2B7D0A7700792385 /* Main.storyboard */,
 				390C23812B7D0A7900792385 /* Assets.xcassets */,
 				390C23832B7D0A7900792385 /* LaunchScreen.storyboard */,
 				390C23862B7D0A7900792385 /* Info.plist */,
+				39A89FD92B8AEB8E00FAF370 /* APIKey.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -153,6 +174,9 @@
 				390C23AE2B7DCC1400792385 /* NewPlanMemoCollectionViewCell.swift */,
 				39DBBDE32B84DA12005A8B8A /* SelectListViewController.swift */,
 				39DBBDEB2B85029E005A8B8A /* SelectDateViewController.swift */,
+				39DBBE5C2B89B7C6005A8B8A /* SelectImageViewController.swift */,
+				39A89FD32B8AD92F00FAF370 /* SearchImageViewController.swift */,
+				39A89FD52B8AE93700FAF370 /* SearchImageCollectionViewCell.swift */,
 			);
 			path = NewPlan;
 			sourceTree = "<group>";
@@ -174,6 +198,15 @@
 				390C23BE2B7E20BD00792385 /* AllPlanTableViewCell.swift */,
 			);
 			path = All;
+			sourceTree = "<group>";
+		};
+		39A89FDB2B8AEBB000FAF370 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				39A89FDC2B8AEBC600FAF370 /* NaverModel.swift */,
+				39A89FDE2B8AEBE000FAF370 /* NaverAPIManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		39BCE3962B83A1C90037D809 /* Extension */ = {
@@ -223,6 +256,8 @@
 				390C23B32B7E184600792385 /* RealmSwift */,
 				390C23B92B7E1D7900792385 /* Toast */,
 				39DBBDE92B850284005A8B8A /* FSCalendar */,
+				39A89FE12B8AEC0300FAF370 /* Alamofire */,
+				39A89FE42B8B049700FAF370 /* Kingfisher */,
 			);
 			productName = Planner;
 			productReference = 390C23752B7D0A7700792385 /* Planner.app */;
@@ -257,6 +292,8 @@
 				390C23B02B7E184600792385 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				390C23B82B7E1D7900792385 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				39DBBDE82B850284005A8B8A /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				39A89FE02B8AEC0300FAF370 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				39A89FE32B8B049700FAF370 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 390C23762B7D0A7700792385 /* Products */;
 			projectDirPath = "";
@@ -272,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A89FD82B8AEB5A00FAF370 /* .gitignore in Resources */,
 				390C23852B7D0A7900792385 /* LaunchScreen.storyboard in Resources */,
 				390C23822B7D0A7900792385 /* Assets.xcassets in Resources */,
 				390C23802B7D0A7700792385 /* Main.storyboard in Resources */,
@@ -285,17 +323,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A89FD42B8AD92F00FAF370 /* SearchImageViewController.swift in Sources */,
 				390C237D2B7D0A7700792385 /* ViewController.swift in Sources */,
 				39DBBDE42B84DA12005A8B8A /* SelectListViewController.swift in Sources */,
 				390C23B72B7E188200792385 /* RealmModel.swift in Sources */,
 				390C23902B7D0B1000792385 /* BaseViewController.swift in Sources */,
 				390C23AD2B7DC10B00792385 /* PlanNewViewController.swift in Sources */,
 				39BCE3982B83AA5A0037D809 /* NewImageCollectionViewCell.swift in Sources */,
+				39A89FDA2B8AEB8E00FAF370 /* APIKey.swift in Sources */,
 				390C23792B7D0A7700792385 /* AppDelegate.swift in Sources */,
+				39A89FD62B8AE93700FAF370 /* SearchImageCollectionViewCell.swift in Sources */,
 				39DBBDDF2B848821005A8B8A /* NewListViewController.swift in Sources */,
 				390C23A12B7D389200792385 /* PriorityViewController.swift in Sources */,
+				39A89FDD2B8AEBC600FAF370 /* NaverModel.swift in Sources */,
 				39DBBDE72B84E8DC005A8B8A /* ListPlanViewController.swift in Sources */,
 				390C23932B7D0CD800792385 /* PlanViewController.swift in Sources */,
+				39A89FDF2B8AEBE000FAF370 /* NaverAPIManager.swift in Sources */,
 				39DBBDE12B849CBC005A8B8A /* ListTableViewCell.swift in Sources */,
 				390C23A32B7DA42600792385 /* NewPlanCollectionViewCell.swift in Sources */,
 				390C239D2B7D2A4300792385 /* TagViewController.swift in Sources */,
@@ -305,6 +348,7 @@
 				39BCE3952B83A1B40037D809 /* FileManager+Extension.swift in Sources */,
 				390C23BF2B7E20BD00792385 /* AllPlanTableViewCell.swift in Sources */,
 				399432232B823C08004609DD /* PlannerTableRepository.swift in Sources */,
+				39DBBE5D2B89B7C6005A8B8A /* SelectImageViewController.swift in Sources */,
 				39DBBDEC2B85029E005A8B8A /* SelectDateViewController.swift in Sources */,
 				390C23952B7D0F5700792385 /* PlanCollectionViewCell.swift in Sources */,
 				390C23BC2B7E1F9C00792385 /* AllPlanViewController.swift in Sources */,
@@ -459,6 +503,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47HVCF82JP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Planner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -490,6 +535,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47HVCF82JP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Planner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -562,6 +608,22 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		39A89FE02B8AEC0300FAF370 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		39A89FE32B8B049700FAF370 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 		39DBBDE82B850284005A8B8A /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -592,6 +654,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 390C23B82B7E1D7900792385 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		39A89FE12B8AEC0300FAF370 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39A89FE02B8AEC0300FAF370 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		39A89FE42B8B049700FAF370 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39A89FE32B8B049700FAF370 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		39DBBDE92B850284005A8B8A /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
